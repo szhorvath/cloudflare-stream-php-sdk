@@ -1,5 +1,7 @@
 <?php
 
+use Szhorvath\CloudflareStream\Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,7 +13,7 @@
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+uses(TestCase::class)->in(__DIR__);
 
 /*
 |--------------------------------------------------------------------------
