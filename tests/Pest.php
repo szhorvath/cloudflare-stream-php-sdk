@@ -1,5 +1,8 @@
 <?php
 
+use Http\Discovery\Psr17FactoryDiscovery;
+use Nyholm\Psr7\Response;
+use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Tests\TestCase;
 
 /*
@@ -41,7 +44,26 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function response(Status $status, string $name): Response
 {
-    // ..
+    return new Response(
+        status: $status->value,
+        body: Psr17FactoryDiscovery::findStreamFactory()->createStream(
+            fixture($name),
+        ),
+
+    );
+}
+
+function fixture(string $name): string
+{
+    if (! file_exists(filename: __DIR__."/Fixtures/{$name}.json")) {
+        throw new InvalidArgumentException(
+            message: "Fixture not found [{$name}].",
+        );
+    }
+
+    return (string) file_get_contents(
+        filename: __DIR__."/Fixtures/{$name}.json",
+    );
 }

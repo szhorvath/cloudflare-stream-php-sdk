@@ -21,7 +21,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  * A builder that builds the API client.
  * This will allow you to fluently add and remove plugins.
  */
-class Builder
+class ClientBuilder
 {
     private HttpMethodsClientInterface $pluginClient;
 

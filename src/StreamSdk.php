@@ -16,8 +16,9 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Http\Message\Authentication\Bearer;
 use Psr\Http\Client\ClientInterface;
+use Szhorvath\CloudflareStream\Resources\Token\TokenResource;
 
-class Client
+final class StreamSdk
 {
     public function __construct(
         private readonly string $url,
@@ -53,16 +54,17 @@ class Client
     public function client(): HttpMethodsClientInterface
     {
         $pluginClient = new PluginClient(
-            client: Psr18ClientDiscovery::find(),
+            client: $this->client ?? Psr18ClientDiscovery::find(),
             plugins: $this->defaultPlugins(),
         );
 
-        return new HttpMethodsClient(
+        $this->client = new HttpMethodsClient(
             $pluginClient,
             Psr17FactoryDiscovery::findRequestFactory(),
             Psr17FactoryDiscovery::findStreamFactory()
         );
 
+        return $this->client;
     }
 
     public function setClient(ClientInterface $client): self
@@ -72,18 +74,8 @@ class Client
         return $this;
     }
 
-    public function url(): string
+    public function token(): TokenResource
     {
-        return $this->url;
-    }
-
-    public function token(): string
-    {
-        return $this->token;
-    }
-
-    public function checkToken()
-    {
-        return $this->client()->get('/user/tokens/verify');
+        return new TokenResource($this);
     }
 }

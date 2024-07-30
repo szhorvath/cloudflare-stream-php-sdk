@@ -1,0 +1,12 @@
+{
+    "result": { "id": "7d8f6ed5fd0843d3ae33919c06917fab", "status": "active" },
+    "success": true,
+    "errors": [],
+    "messages": [
+        {
+            "code": 10000,
+            "message": "This API Token is valid and active",
+            "type": null
+        }
+    ]
+}
