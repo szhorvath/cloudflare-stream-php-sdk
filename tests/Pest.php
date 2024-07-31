@@ -1,7 +1,9 @@
 <?php
 
 use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Response;
+use Szhorvath\CloudflareStream\ClientBuilder;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Tests\TestCase;
 
@@ -43,6 +45,12 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+function mockBuilder(?MockClient $client = null)
+{
+    return new ClientBuilder(
+        httpClient: $client ?? new MockClient,
+    );
+}
 
 function response(Status $status, string $name): Response
 {

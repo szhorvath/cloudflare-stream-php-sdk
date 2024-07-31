@@ -9,6 +9,7 @@ use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\Cache\Generator\HeaderCacheKeyGenerator;
 use Http\Client\Common\Plugin\CachePlugin;
+use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClientFactory;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
@@ -38,7 +39,7 @@ class ClientBuilder
     /**
      * This plugin is special treated because it has to be the very last plugin.
      */
-    private ?CachePlugin $cachePlugin;
+    private ?CachePlugin $cachePlugin = null;
 
     /**
      * Http headers.
@@ -57,7 +58,7 @@ class ClientBuilder
         $this->streamFactory = $streamFactory ?: Psr17FactoryDiscovery::findStreamFactory();
     }
 
-    public function getHttpClient(): HttpMethodsClientInterface
+    public function httpClient(): HttpMethodsClientInterface
     {
         if ($this->httpClientModified) {
             $this->httpClientModified = false;
@@ -69,7 +70,8 @@ class ClientBuilder
 
             $this->pluginClient = new HttpMethodsClient(
                 (new PluginClientFactory)->createClient($this->httpClient, $plugins),
-                $this->requestFactory
+                $this->requestFactory,
+                $this->streamFactory
             );
         }
 
@@ -105,16 +107,16 @@ class ClientBuilder
     {
         $this->headers = [];
 
-        $this->removePlugin(Plugin\HeaderAppendPlugin::class);
-        $this->addPlugin(new Plugin\HeaderAppendPlugin($this->headers));
+        $this->removePlugin(HeaderAppendPlugin::class);
+        $this->addPlugin(new HeaderAppendPlugin($this->headers));
     }
 
     public function addHeaders(array $headers): void
     {
         $this->headers = array_merge($this->headers, $headers);
 
-        $this->removePlugin(Plugin\HeaderAppendPlugin::class);
-        $this->addPlugin(new Plugin\HeaderAppendPlugin($this->headers));
+        $this->removePlugin(HeaderAppendPlugin::class);
+        $this->addPlugin(new HeaderAppendPlugin($this->headers));
     }
 
     public function addHeaderValue(string $header, string $headerValue): void
@@ -125,8 +127,8 @@ class ClientBuilder
             $this->headers[$header] = array_merge((array) $this->headers[$header], [$headerValue]);
         }
 
-        $this->removePlugin(Plugin\HeaderAppendPlugin::class);
-        $this->addPlugin(new Plugin\HeaderAppendPlugin($this->headers));
+        $this->removePlugin(HeaderAppendPlugin::class);
+        $this->addPlugin(new HeaderAppendPlugin($this->headers));
     }
 
     /**
@@ -140,7 +142,7 @@ class ClientBuilder
         if (! isset($config['cache_key_generator'])) {
             $config['cache_key_generator'] = new HeaderCacheKeyGenerator(['Authorization', 'Cookie', 'Accept', 'Content-type']);
         }
-        $this->cachePlugin = Plugin\CachePlugin::clientCache($cachePool, $this->streamFactory, $config);
+        $this->cachePlugin = CachePlugin::clientCache($cachePool, $this->streamFactory, $config);
         $this->httpClientModified = true;
     }
 

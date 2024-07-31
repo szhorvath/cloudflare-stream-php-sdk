@@ -7,14 +7,9 @@ use Szhorvath\CloudflareStream\ClientBuilder;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\StreamSdk;
 
-it('should build a new client', function () {
-    $sdk = new StreamSdk(
-        url: 'https://api.cloudflare.com/client/v4/',
-        token: '1234567890'
-    );
-
-    expect($sdk)->toBeInstanceOf(StreamSdk::class);
-});
+it('should build a new client')
+    ->expect(new StreamSdk(token: '1234567890'))
+    ->toBeInstanceOf(StreamSdk::class);
 
 it('should create a builder')
     ->expect(new ClientBuilder)
@@ -28,9 +23,8 @@ it('should verify token validity', function () {
     ));
 
     $sdk = new StreamSdk(
-        url: 'https://api.cloudflare.com/client/v4/',
         token: '1234568',
-        client: $client
+        clientBuilder: mockBuilder($client)
     );
 
     expect($sdk->token()->verify())->toBeTrue();
