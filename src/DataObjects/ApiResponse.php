@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace Szhorvath\CloudflareStream\DataObjects;
 
+use Illuminate\Support\Collection;
 use League\ObjectMapper\Constructor;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
-// use Szhorvath\CloudflareStream\Contracts\ResultContract;
-
 class ApiResponse
 {
+    /**
+     * @param  Collection<int, Error>  $errors
+     * @param  Collection<int Message>  $messages
+     */
     public function __construct(
         public readonly bool $success,
-        public readonly array $errors,
         public readonly ResultContract $result,
-        public readonly array $messages = [],
+        public readonly Collection $errors,
+        public readonly Collection $messages,
     ) {}
 
     #[Constructor]
@@ -23,9 +26,9 @@ class ApiResponse
     {
         return new self(
             success: $data['success'],
-            errors: $data['errors'],
             result: $resultClass::from($data['result']),
-            messages: $data['messages'] ?? [],
+            errors: (new Collection($data['errors']))->map(fn ($error) => Error::from($error)),
+            messages: (new Collection($data['messages']))->map(fn ($message) => Message::from($message))
         );
     }
 }

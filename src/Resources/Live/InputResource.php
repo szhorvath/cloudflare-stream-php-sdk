@@ -7,7 +7,8 @@ namespace Szhorvath\CloudflareStream\Resources\Live;
 use Http\Client\Exception;
 use RuntimeException;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
-use Szhorvath\CloudflareStream\DataObjects\InputCollection;
+use Szhorvath\CloudflareStream\DataObjects\Live\Input;
+use Szhorvath\CloudflareStream\DataObjects\Live\InputCollection;
 use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\Resources\Resource;
 use TypeError;
@@ -47,13 +48,14 @@ class InputResource extends Resource
         );
     }
 
-    public function retrieve(string $uid): object
+    public function retrieve(string $accountId, string $liveInputIdentifier): object
     {
-        $response = $this->client()->get('/stream/'.$uid);
+        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputIdentifier}");
 
-        $responseBody = $response->getBody()->getContents();
-
-        return json_decode($responseBody)->result;
+        return ApiResponse::from(
+            $this->decodeResponse($response),
+            Input::class
+        );
     }
 
     public function delete(string $uid): void

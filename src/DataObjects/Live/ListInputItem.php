@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Szhorvath\CloudflareStream\DataObjects;
+namespace Szhorvath\CloudflareStream\DataObjects\Live;
 
 use DateTimeImmutable;
 use League\ObjectMapper\PropertyCasters\CastToType;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
-class Input implements ResultContract
+class ListInputItem implements ResultContract
 {
     use CanBeHydrated;
 
