@@ -11,6 +11,7 @@ use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication\Bearer;
+use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\Resources\Token\TokenResource;
 
 final class StreamSdk
@@ -41,5 +42,10 @@ final class StreamSdk
     public function token(): TokenResource
     {
         return new TokenResource($this);
+    }
+
+    public function inputs(): InputResource
+    {
+        return new InputResource($this);
     }
 }

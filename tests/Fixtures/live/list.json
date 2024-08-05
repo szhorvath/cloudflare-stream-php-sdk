@@ -1,0 +1,26 @@
+{
+    "result": [
+        {
+            "uid": "aed55c2824e57b715d1254c2e7f47edd",
+            "created": "2024-07-30T14:06:42.832913Z",
+            "modified": "2024-07-30T14:17:05.458719Z",
+            "meta": {
+                "name": "curly-shape-b869",
+                "custom": "Some description"
+            },
+            "deleteRecordingAfterDays": 30
+        },
+        {
+            "uid": "cc64dc68be858392942e4b89830769d9",
+            "created": "2024-05-14T08:36:59.781504Z",
+            "modified": "2024-07-03T12:34:54.020415Z",
+            "meta": {
+                "name": "curly-shape-bb80"
+            },
+            "deleteRecordingAfterDays": null
+        }
+    ],
+    "success": true,
+    "errors": [],
+    "messages": []
+}
