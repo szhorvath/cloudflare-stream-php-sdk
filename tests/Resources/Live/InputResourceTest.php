@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use DateTimeImmutable;
 use Http\Mock\Client as MockClient;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Live\Input;
@@ -239,4 +238,24 @@ it('should retrieve a single live input', function () {
                 ->state->toBe('connected')
                 ->statusEnteredAt->toBeInstanceOf(DateTimeImmutable::class),
         );
+});
+
+it('should delete a live input', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        status: Status::OK,
+        name: 'live/delete',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $input = $sdk->inputs()->delete('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff');
+
+    expect($input)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeNull()
+        ->success->toBeTrue();
 });

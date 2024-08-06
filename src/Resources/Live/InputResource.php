@@ -25,10 +25,10 @@ class InputResource extends Resource
         );
     }
 
-    public function update(string $accountId, string $liveInputIdentifier, ?array $data = []): ApiResponse
+    public function update(string $accountId, string $liveInputId, ?array $data = []): ApiResponse
     {
         $response = $this->client()->put(
-            uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputIdentifier}",
+            uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}",
             body: $this->createStream($data)
         );
 
@@ -45,23 +45,27 @@ class InputResource extends Resource
         $response = $this->client()->sendRequest($request);
 
         return ApiResponse::from(
-            $this->decodeResponse($response),
-            InputCollection::class
+            data: $this->decodeResponse($response),
+            resultClass: InputCollection::class
         );
     }
 
-    public function retrieve(string $accountId, string $liveInputIdentifier): object
+    public function retrieve(string $accountId, string $liveInputId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputIdentifier}");
+        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
 
         return ApiResponse::from(
-            $this->decodeResponse($response),
-            Input::class
+            data: $this->decodeResponse($response),
+            resultClass: Input::class
         );
     }
 
-    public function delete(string $uid): void
+    public function delete(string $accountId, string $liveInputId): ApiResponse
     {
-        $this->client()->delete('/stream/'.$uid);
+        $response = $this->client()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+        );
     }
 }

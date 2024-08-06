@@ -16,17 +16,17 @@ class ApiResponse
      */
     public function __construct(
         public readonly bool $success,
-        public readonly ResultContract $result,
         public readonly Collection $errors,
         public readonly Collection $messages,
+        public readonly ?ResultContract $result = null,
     ) {}
 
     #[Constructor]
-    public static function from(array $data, string $resultClass): self
+    public static function from(array $data, ?string $resultClass = null): self
     {
         return new self(
             success: $data['success'],
-            result: $resultClass::from($data['result']),
+            result: $data['result'] ? $resultClass::from($data['result']) : null,
             errors: (new Collection($data['errors']))->map(fn ($error) => Error::from($error)),
             messages: (new Collection($data['messages']))->map(fn ($message) => Message::from($message))
         );
