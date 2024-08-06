@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Szhorvath\CloudflareStream\Resources\Live;
 
-use Http\Client\Exception;
-use RuntimeException;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Live\Input;
 use Szhorvath\CloudflareStream\DataObjects\Live\InputCollection;
 use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\Resources\Resource;
-use TypeError;
 
 class InputResource extends Resource
 {
@@ -28,13 +25,19 @@ class InputResource extends Resource
         );
     }
 
-    /**
-     * @see https://developers.cloudflare.com/api/operations/stream-live-inputs-list-live-inputs
-     *
-     * @throws TypeError
-     * @throws Exception
-     * @throws RuntimeException
-     */
+    public function update(string $accountId, string $liveInputIdentifier, ?array $data = []): ApiResponse
+    {
+        $response = $this->client()->put(
+            uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputIdentifier}",
+            body: $this->createStream($data)
+        );
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Input::class
+        );
+    }
+
     public function list(string $accountId, array $filters = []): ApiResponse
     {
         $request = $this->buildRequest(Method::GET, "/accounts/{$accountId}/stream/live_inputs");

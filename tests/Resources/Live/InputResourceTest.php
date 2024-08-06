@@ -69,7 +69,7 @@ it('should create a new live input', function () {
     ));
 
     $sdk = new StreamSdk(
-        token: 'KAYcfKKkscFLXyPBVfyYerj3yw_WgLqFVlaTwA8a',
+        token: '123',
         clientBuilder: mockBuilder($client)
     );
 
@@ -79,7 +79,8 @@ it('should create a new live input', function () {
             'name' => 'curly-shape-aa9',
         ],
         'deleteRecordingAfterDays' => 45,
-        'recordings' => [
+        'recording' => [
+            'allowedOrigins' => null,
             'mode' => 'off',
             'requireSignedURLs' => false,
             'timeoutSeconds' => 0,
@@ -100,6 +101,66 @@ it('should create a new live input', function () {
         ->recording->mode->toBeInstanceOf(RecordingMode::class)
         ->recording->mode->value->toBe('off')
         ->recording->requireSignedURLs->toBeFalse()
+        ->rtmps->toBeInstanceOf(Rtmps::class)
+        ->rtmps->streamKey->toBe('4cc00bb4f41f32c260eb4daa457544dfkcfea8e17547acc0520486e228441fcff')
+        ->rtmps->url->toBe('rtmps://live.cloudflare.com:443/live/')
+        ->rtmpsPlayback->toBeInstanceOf(Rtmps::class)
+        ->rtmpsPlayback->streamKey->toBe('09994d6aace0cab049853fbe4367fe53kcfea8e17547acc0520486e228441fcff')
+        ->rtmpsPlayback->url->toBe('rtmps://live.cloudflare.com:443/live/')
+        ->srt->toBeInstanceOf(Srt::class)
+        ->srt->passphrase->toBe('ece3d28757d2e9fbbdde20b039dbbc18kcfea8e17547acc0520486e228441fcff')
+        ->srt->streamId->toBe('cfea8e17547acc0520486e228441fcff')
+        ->srtPlayback->toBeInstanceOf(Srt::class)
+        ->srtPlayback->passphrase->toBe('6f7c50cc0e40f87db19f743524678465kcfea8e17547acc0520486e228441fcff')
+        ->srtPlayback->streamId->toBe('playcfea8e17547acc0520486e228441fcff')
+        ->webRTC->toBeInstanceOf(WebRTC::class)
+        ->webRTC->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish')
+        ->webRTCPlayback->toBeInstanceOf(WebRTC::class)
+        ->webRTCPlayback->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play')
+        ->status->toBeNull();
+});
+
+it('should update a live input', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        status: Status::OK,
+        name: 'live/update',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $input = $sdk->inputs()->update('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff', [
+        'defaultCreator' => 'test-stream',
+        'meta' => [
+            'name' => 'test-stream-updated',
+            'description' => 'updated description',
+        ],
+        'deleteRecordingAfterDays' => 45,
+        'recording' => [
+            'allowedOrigins' => null,
+            'mode' => 'automatic',
+            'requireSignedURLs' => true,
+            'timeoutSeconds' => 0,
+        ],
+    ]);
+
+    expect($input)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Input::class);
+
+    expect($input->result)
+        ->uid->toBe('cfea8e17547acc0520486e228441fcff')
+        ->created->toBeInstanceOf(DateTimeImmutable::class)
+        ->modified->toBeInstanceOf(DateTimeImmutable::class)
+        ->meta->toBe(['description' => 'updated description', 'name' => 'test-stream-updated'])
+        ->deleteRecordingAfterDays->toBe(45)
+        ->recording->toBeInstanceOf(Recording::class)
+        ->recording->mode->toBeInstanceOf(RecordingMode::class)
+        ->recording->mode->value->toBe('automatic')
+        ->recording->requireSignedURLs->toBeTrue()
         ->rtmps->toBeInstanceOf(Rtmps::class)
         ->rtmps->streamKey->toBe('4cc00bb4f41f32c260eb4daa457544dfkcfea8e17547acc0520486e228441fcff')
         ->rtmps->url->toBe('rtmps://live.cloudflare.com:443/live/')
