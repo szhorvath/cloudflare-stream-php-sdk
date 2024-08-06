@@ -24,7 +24,8 @@ class Input implements ResultContract
         public readonly WebRTC $webRTC,
         public readonly WebRTC $webRTCPlayback,
         public readonly array $meta,
-        public readonly InputStatus $status,
+        public readonly ?string $defaultCreator = null,
+        public readonly ?InputStatus $status = null,
         public readonly ?int $deleteRecordingAfterDays = null,
         public readonly bool $preferLowLatency = false,
     ) {}

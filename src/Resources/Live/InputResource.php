@@ -15,18 +15,17 @@ use TypeError;
 
 class InputResource extends Resource
 {
-    public function create(string $name, string $url): string
+    public function create(string $accountId, ?array $data = []): ApiResponse
     {
-        $response = $this->client()->post('/stream', [
-            'json' => [
-                'name' => $name,
-                'url' => $url,
-            ],
-        ]);
+        $response = $this->client()->post(
+            uri: "/accounts/{$accountId}/stream/live_inputs",
+            body: $this->createStream($data)
+        );
 
-        $responseBody = $response->getBody()->getContents();
-
-        return json_decode($responseBody)->result->uid;
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Input::class
+        );
     }
 
     /**

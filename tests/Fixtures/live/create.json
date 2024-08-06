@@ -1,44 +1,46 @@
 {
-    "errors": [],
-    "messages": [],
-    "success": true,
     "result": {
-        "created": "2014-01-02T02:20:00Z",
-        "deleteRecordingAfterDays": 45,
-        "meta": {
-            "name": "test stream 1"
+        "uid": "cfea8e17547acc0520486e228441fcff",
+        "rtmps": {
+            "url": "rtmps://live.cloudflare.com:443/live/",
+            "streamKey": "4cc00bb4f41f32c260eb4daa457544dfkcfea8e17547acc0520486e228441fcff"
         },
-        "modified": "2014-01-02T02:20:00Z",
+        "rtmpsPlayback": {
+            "url": "rtmps://live.cloudflare.com:443/live/",
+            "streamKey": "09994d6aace0cab049853fbe4367fe53kcfea8e17547acc0520486e228441fcff"
+        },
+        "srt": {
+            "url": "srt://live.cloudflare.com:778",
+            "streamId": "cfea8e17547acc0520486e228441fcff",
+            "passphrase": "ece3d28757d2e9fbbdde20b039dbbc18kcfea8e17547acc0520486e228441fcff"
+        },
+        "srtPlayback": {
+            "url": "srt://live.cloudflare.com:778",
+            "streamId": "playcfea8e17547acc0520486e228441fcff",
+            "passphrase": "6f7c50cc0e40f87db19f743524678465kcfea8e17547acc0520486e228441fcff"
+        },
+        "webRTC": {
+            "url": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish"
+        },
+        "webRTCPlayback": {
+            "url": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play"
+        },
+        "created": "2024-08-06T09:59:00.836527Z",
+        "modified": "2024-08-06T09:59:00.836527Z",
+        "meta": {
+            "name": "curly-shape-aa9"
+        },
+        "defaultCreator": "test-stream-1",
+        "status": null,
         "recording": {
             "mode": "off",
             "requireSignedURLs": false,
-            "timeoutSeconds": 0
+            "allowedOrigins": null,
+            "hideLiveViewerCount": false
         },
-        "rtmps": {
-            "streamKey": "2fb3cb9f17e68a2568d6ebed8d5505eak3ceaf8c9b1f395e1b76b79332497cada",
-            "url": "rtmps://live.cloudflare.com:443/live/"
-        },
-        "rtmpsPlayback": {
-            "streamKey": "2fb3cb9f17e68a2568d6ebed8d5505eak3ceaf8c9b1f395e1b76b79332497cada",
-            "url": "rtmps://live.cloudflare.com:443/live/"
-        },
-        "srt": {
-            "passphrase": "2fb3cb9f17e68a2568d6ebed8d5505eak3ceaf8c9b1f395e1b76b79332497cada",
-            "streamId": "f256e6ea9341d51eea64c9454659e576",
-            "url": "srt://live.cloudflare.com:778"
-        },
-        "srtPlayback": {
-            "passphrase": "2fb3cb9f17e68a2568d6ebed8d5505eak3ceaf8c9b1f395e1b76b79332497cada",
-            "streamId": "f256e6ea9341d51eea64c9454659e576",
-            "url": "rtmps://live.cloudflare.com:443/live/"
-        },
-        "status": null,
-        "uid": "66be4bf738797e01e1fca35a7bdecdcd",
-        "webRTC": {
-            "url": "https://customer-m033z5x00ks6nunl.cloudflarestream.com/b236bde30eb07b9d01318940e5fc3edake34a3efb3896e18f2dc277ce6cc993ad/webRTC/publish"
-        },
-        "webRTCPlayback": {
-            "url": "https://customer-m033z5x00ks6nunl.cloudflarestream.com/b236bde30eb07b9d01318940e5fc3edake34a3efb3896e18f2dc277ce6cc993ad/webRTC/play"
-        }
-    }
+        "deleteRecordingAfterDays": 45
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
 }

@@ -9,6 +9,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use Szhorvath\CloudflareStream\Contracts\ResourceContract;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\Enums\Method;
@@ -59,6 +60,16 @@ abstract class Resource implements ResourceContract
         return Psr17FactoryDiscovery::findRequestFactory()->createRequest(
             method: $method->value,
             uri: $uri,
+        );
+    }
+
+    public function createStream(array $payload): StreamInterface
+    {
+        return Psr17FactoryDiscovery::findStreamFactory()->createStream(
+            content: json_encode(
+                value: $payload,
+                flags: JSON_THROW_ON_ERROR
+            ),
         );
     }
 
