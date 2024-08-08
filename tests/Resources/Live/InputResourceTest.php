@@ -20,7 +20,7 @@ use Szhorvath\CloudflareStream\StreamSdk;
 it('should return the input resource', function () {
     $sdk = new StreamSdk('api-key');
 
-    $inputs = $sdk->inputs();
+    $inputs = $sdk->input();
 
     expect($inputs)->toBeInstanceOf(InputResource::class);
 });
@@ -29,7 +29,7 @@ it('should list live inputs', function () {
     $client = new MockClient;
     $client->addResponse(response(
         status: Status::OK,
-        name: 'live/list',
+        name: 'live/input/list',
     ));
 
     $sdk = new StreamSdk(
@@ -37,7 +37,7 @@ it('should list live inputs', function () {
         clientBuilder: mockBuilder($client)
     );
 
-    $inputs = $sdk->inputs()->list('0a6c8c72a460f78152e767e10842dcb2');
+    $inputs = $sdk->input()->list('0a6c8c72a460f78152e767e10842dcb2');
 
     expect($inputs)
         ->toBeInstanceOf(ApiResponse::class)
@@ -64,7 +64,7 @@ it('should create a new live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
         status: Status::OK,
-        name: 'live/create',
+        name: 'live/input/create',
     ));
 
     $sdk = new StreamSdk(
@@ -72,7 +72,7 @@ it('should create a new live input', function () {
         clientBuilder: mockBuilder($client)
     );
 
-    $input = $sdk->inputs()->create('0a6c8c72a460f78152e767e10842dcb2', [
+    $input = $sdk->input()->create('0a6c8c72a460f78152e767e10842dcb2', [
         'defaultCreator' => 'test-stream',
         'meta' => [
             'name' => 'curly-shape-aa9',
@@ -123,7 +123,7 @@ it('should update a live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
         status: Status::OK,
-        name: 'live/update',
+        name: 'live/input/update',
     ));
 
     $sdk = new StreamSdk(
@@ -131,7 +131,7 @@ it('should update a live input', function () {
         clientBuilder: mockBuilder($client)
     );
 
-    $input = $sdk->inputs()->update('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff', [
+    $input = $sdk->input()->update('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff', [
         'defaultCreator' => 'test-stream',
         'meta' => [
             'name' => 'test-stream-updated',
@@ -183,7 +183,7 @@ it('should retrieve a single live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
         status: Status::OK,
-        name: 'live/retrieve',
+        name: 'live/input/retrieve',
     ));
 
     $sdk = new StreamSdk(
@@ -191,7 +191,7 @@ it('should retrieve a single live input', function () {
         clientBuilder: mockBuilder($client)
     );
 
-    $input = $sdk->inputs()->retrieve('0a6c8c72a460f78152e767e10842dcb2', 'cc64dc68be858392942e4b89830769d9');
+    $input = $sdk->input()->retrieve('0a6c8c72a460f78152e767e10842dcb2', 'cc64dc68be858392942e4b89830769d9');
 
     expect($input)
         ->toBeInstanceOf(ApiResponse::class)
@@ -244,7 +244,7 @@ it('should delete a live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
         status: Status::OK,
-        name: 'live/delete',
+        name: 'live/input/delete',
     ));
 
     $sdk = new StreamSdk(
@@ -252,7 +252,7 @@ it('should delete a live input', function () {
         clientBuilder: mockBuilder($client)
     );
 
-    $input = $sdk->inputs()->delete('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff');
+    $input = $sdk->input()->delete('0a6c8c72a460f78152e767e10842dcb2', 'cfea8e17547acc0520486e228441fcff');
 
     expect($input)
         ->toBeInstanceOf(ApiResponse::class)

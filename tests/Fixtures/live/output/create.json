@@ -1,0 +1,12 @@
+{
+    "result": {
+        "uid": "4ca798e9b35a9a9c8fa1c1ed8e7b705a",
+        "url": "rtmp://a.rtmp.youtube.com/live2",
+        "streamKey": "fw1j-4r9t-qqc6-u98y-b8ga",
+        "enabled": true,
+        "status": null
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}
