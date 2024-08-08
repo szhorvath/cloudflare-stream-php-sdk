@@ -10,8 +10,8 @@ class InputStatusHistory
 {
     public function __construct(
         public readonly string $ingestProtocol,
-        public readonly string $reason,
         public readonly string $state,
         public readonly DateTimeImmutable $statusEnteredAt,
+        public readonly ?string $reason,
     ) {}
 }

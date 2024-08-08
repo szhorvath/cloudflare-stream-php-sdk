@@ -6,9 +6,8 @@ namespace Szhorvath\CloudflareStream\Resources\Live;
 
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Live\Input;
-use Szhorvath\CloudflareStream\DataObjects\Live\InputCollection;
 use Szhorvath\CloudflareStream\DataObjects\Live\Output;
-use Szhorvath\CloudflareStream\Enums\Method;
+use Szhorvath\CloudflareStream\DataObjects\Live\OutputCollection;
 use Szhorvath\CloudflareStream\Resources\Resource;
 
 class OutputResource extends Resource
@@ -39,15 +38,13 @@ class OutputResource extends Resource
         );
     }
 
-    public function list(string $accountId, array $filters = []): ApiResponse
+    public function list(string $accountId, string $liveInputId): ApiResponse
     {
-        $request = $this->buildRequest(Method::GET, "/accounts/{$accountId}/stream/live_inputs");
-
-        $response = $this->client()->sendRequest($request);
+        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs");
 
         return ApiResponse::from(
             data: $this->decodeResponse($response),
-            resultClass: InputCollection::class
+            resultClass: OutputCollection::class
         );
     }
 

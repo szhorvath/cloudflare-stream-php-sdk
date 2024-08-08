@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
+use Szhorvath\CloudflareStream\DataObjects\Live\InputStatus;
+use Szhorvath\CloudflareStream\DataObjects\Live\OutputCollection;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
 use Szhorvath\CloudflareStream\StreamSdk;
@@ -48,4 +50,50 @@ it('should create a new live output', function () {
         ->streamKey->toBe('fw1j-4r9t-qqc6-u98y-b8ga')
         ->enabled->toBeTrue()
         ->status->toBeNull();
+});
+
+it('should list all live outputs', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        status: Status::OK,
+        name: 'live/output/list',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '134',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $outputs = $sdk->output()->list(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        liveInputId: 'aed55c2824e57b715d1254c2e7f47edd',
+    );
+
+    expect($outputs)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->success->toBeTrue();
+
+    expect($outputs->result)
+        ->toBeInstanceOf(OutputCollection::class)
+        ->toHaveCount(1);
+
+    expect($outputs->result->first())
+        ->uid->toBe('4ca798e9b35a9a9c8fa1c1ed8e7b705a')
+        ->url->toBe('rtmp://a.rtmp.youtube.com/live2')
+        ->streamKey->toBe('fw1j-4r9t-qqc6-u98y-b8ga')
+        ->enabled->toBeTrue()
+        ->status->toBeInstanceOf(InputStatus::class)
+        ->status->current->ingestProtocol->toBe('rtmp')
+        ->status->current->state->toBe('connected')
+        ->status->current->statusEnteredAt->toBeInstanceOf(DateTimeImmutable::class)
+        ->status->current->reason->toBe('connected')
+        ->status->history->toHaveCount(1)
+        ->status->history->sequence(
+            fn ($history) => $history
+                ->ingestProtocol->toBe('rtmp')
+                ->reason->toBeNull()
+                ->state->toBe('connecting')
+                ->statusEnteredAt->toBeInstanceOf(DateTimeImmutable::class),
+        );
+
 });
