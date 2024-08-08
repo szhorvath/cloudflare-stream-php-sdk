@@ -1,0 +1,27 @@
+{
+    "result": {
+        "uid": "4ca798e9b35a9a9c8fa1c1ed8e7b705a",
+        "url": "rtmp://a.rtmp.youtube.com/live2",
+        "streamKey": "fw1j-4r9t-qqc6-u98y-b8ga",
+        "enabled": false,
+        "status": {
+            "current": {
+                "ingestProtocol": "rtmp",
+                "reason": "connected",
+                "state": "connected",
+                "statusEnteredAt": "2024-08-08T10:34:01.585Z",
+                "statusLastSeen": "2024-08-08T11:22:33.271Z"
+            },
+            "history": [
+                {
+                    "ingestProtocol": "rtmp",
+                    "state": "connecting",
+                    "statusEnteredAt": "2024-08-08T10:34:01.585Z"
+                }
+            ]
+        }
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}

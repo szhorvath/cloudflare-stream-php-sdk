@@ -25,16 +25,16 @@ class OutputResource extends Resource
         );
     }
 
-    public function update(string $accountId, string $liveInputId, ?array $data = []): ApiResponse
+    public function update(string $accountId, string $liveInputId, string $outputId, ?array $data = []): ApiResponse
     {
         $response = $this->client()->put(
-            uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}",
+            uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}",
             body: $this->createStream($data)
         );
 
         return ApiResponse::from(
             data: $this->decodeResponse($response),
-            resultClass: Input::class
+            resultClass: Output::class
         );
     }
 
@@ -58,9 +58,9 @@ class OutputResource extends Resource
         );
     }
 
-    public function delete(string $accountId, string $liveInputId): ApiResponse
+    public function delete(string $accountId, string $liveInputId, string $outputId): ApiResponse
     {
-        $response = $this->client()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
+        $response = $this->client()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}");
 
         return ApiResponse::from(
             data: $this->decodeResponse($response),
