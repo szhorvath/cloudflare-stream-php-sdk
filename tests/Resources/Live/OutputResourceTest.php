@@ -128,7 +128,19 @@ it('should update live output', function () {
         ->url->toBe('rtmp://a.rtmp.youtube.com/live2')
         ->streamKey->toBe('fw1j-4r9t-qqc6-u98y-b8ga')
         ->enabled->toBeFalse()
-        ->status->toBeNull();
+        ->status->toBeInstanceOf(InputStatus::class)
+        ->status->current->ingestProtocol->toBe('rtmp')
+        ->status->current->state->toBe('connected')
+        ->status->current->statusEnteredAt->toBeInstanceOf(DateTimeImmutable::class)
+        ->status->current->reason->toBe('connected')
+        ->status->history->toHaveCount(1)
+        ->status->history->sequence(
+            fn ($history) => $history
+                ->ingestProtocol->toBe('rtmp')
+                ->reason->toBeNull()
+                ->state->toBe('connecting')
+                ->statusEnteredAt->toBeInstanceOf(DateTimeImmutable::class),
+        );
 });
 
 it('should delete live output', function () {
