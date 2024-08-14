@@ -14,6 +14,7 @@ use Http\Message\Authentication\Bearer;
 use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
 use Szhorvath\CloudflareStream\Resources\Token\TokenResource;
+use Szhorvath\CloudflareStream\Resources\Webhook\WebhookResource;
 
 final class StreamSdk
 {
@@ -53,5 +54,10 @@ final class StreamSdk
     public function output(): OutputResource
     {
         return new OutputResource($this);
+    }
+
+    public function webhook(): WebhookResource
+    {
+        return new WebhookResource($this);
     }
 }
