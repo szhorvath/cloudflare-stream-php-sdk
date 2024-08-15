@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
-use Szhorvath\CloudflareStream\StreamSdk;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Video\Input;
-use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
-use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
 use Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem;
+use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
 use Szhorvath\CloudflareStream\DataObjects\Video\PublicDetails;
-use Szhorvath\CloudflareStream\DataObjects\Video\VideoCollection;
 use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
+use Szhorvath\CloudflareStream\DataObjects\Video\VideoCollection;
+use Szhorvath\CloudflareStream\Enums\Status;
+use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
+use Szhorvath\CloudflareStream\StreamSdk;
 
 it('should return the video resource', function () {
     $sdk = new StreamSdk('api-key');
