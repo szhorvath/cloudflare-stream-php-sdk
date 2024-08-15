@@ -113,9 +113,9 @@ it('should create a new live input', function () {
         ->srtPlayback->passphrase->toBe('6f7c50cc0e40f87db19f743524678465kcfea8e17547acc0520486e228441fcff')
         ->srtPlayback->streamId->toBe('playcfea8e17547acc0520486e228441fcff')
         ->webRTC->toBeInstanceOf(WebRTC::class)
-        ->webRTC->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish')
+        ->webRTC->url->toBe('https://customer-6xsmv.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish')
         ->webRTCPlayback->toBeInstanceOf(WebRTC::class)
-        ->webRTCPlayback->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play')
+        ->webRTCPlayback->url->toBe('https://customer-6xsmv.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play')
         ->status->toBeNull();
 });
 
@@ -173,9 +173,9 @@ it('should update a live input', function () {
         ->srtPlayback->passphrase->toBe('6f7c50cc0e40f87db19f743524678465kcfea8e17547acc0520486e228441fcff')
         ->srtPlayback->streamId->toBe('playcfea8e17547acc0520486e228441fcff')
         ->webRTC->toBeInstanceOf(WebRTC::class)
-        ->webRTC->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish')
+        ->webRTC->url->toBe('https://customer-6xsmv.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish')
         ->webRTCPlayback->toBeInstanceOf(WebRTC::class)
-        ->webRTCPlayback->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play')
+        ->webRTCPlayback->url->toBe('https://customer-6xsmv.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play')
         ->status->toBeNull();
 });
 
@@ -220,9 +220,9 @@ it('should retrieve a single live input', function () {
         ->srtPlayback->passphrase->toBe('89c37942d5314251b4ac14ea9a1c395ekcc64dc68be858392942e4b89830769d9')
         ->srtPlayback->streamId->toBe('playcc64dc68be858392942e4b89830769d9')
         ->webRTC->toBeInstanceOf(WebRTC::class)
-        ->webRTC->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/f7469f63104536a356457d24b447fc7fkcc64dc68be858392942e4b89830769d9/webRTC/publish')
+        ->webRTC->url->toBe('https://customer-6xsmv.cloudflarestream.com/f7469f63104536a356457d24b447fc7fkcc64dc68be858392942e4b89830769d9/webRTC/publish')
         ->webRTCPlayback->toBeInstanceOf(WebRTC::class)
-        ->webRTCPlayback->url->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cc64dc68be858392942e4b89830769d9/webRTC/play')
+        ->webRTCPlayback->url->toBe('https://customer-6xsmv.cloudflarestream.com/cc64dc68be858392942e4b89830769d9/webRTC/play')
         ->status->toBeInstanceOf(InputStatus::class)
         ->status->current->toBeInstanceOf(InputStatusCurrent::class)
         ->status->current->ingestProtocol->toBe('rtmp')

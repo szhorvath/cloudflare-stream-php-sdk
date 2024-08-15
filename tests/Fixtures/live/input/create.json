@@ -20,10 +20,10 @@
             "passphrase": "6f7c50cc0e40f87db19f743524678465kcfea8e17547acc0520486e228441fcff"
         },
         "webRTC": {
-            "url": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish"
+            "url": "https://customer-6xsmv.cloudflarestream.com/e706b37ac3a2d7ae90e18be581013043kcfea8e17547acc0520486e228441fcff/webRTC/publish"
         },
         "webRTCPlayback": {
-            "url": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play"
+            "url": "https://customer-6xsmv.cloudflarestream.com/cfea8e17547acc0520486e228441fcff/webRTC/play"
         },
         "created": "2024-08-06T09:59:00.836527Z",
         "modified": "2024-08-06T09:59:00.836527Z",
