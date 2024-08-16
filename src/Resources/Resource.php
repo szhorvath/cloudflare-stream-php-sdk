@@ -6,26 +6,15 @@ namespace Szhorvath\CloudflareStream\Resources;
 
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Discovery\Psr17FactoryDiscovery;
-use Illuminate\Support\Collection;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Szhorvath\CloudflareStream\Contracts\ResourceContract;
-use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\StreamSdk;
 
 abstract class Resource implements ResourceContract
 {
-    private bool $success = false;
-
-    private array $errors = [];
-
-    private array $messages = [];
-
-    /** @var null|ResultContract|Collection<int, ResultContract> */
-    private ResultContract|Collection|null $result = null;
-
     public function __construct(
         private readonly StreamSdk $sdk,
     ) {}
@@ -33,26 +22,6 @@ abstract class Resource implements ResourceContract
     public function client(): HttpMethodsClientInterface
     {
         return $this->sdk->client();
-    }
-
-    public function success(): bool
-    {
-        return $this->success;
-    }
-
-    public function errors(): array
-    {
-        return $this->errors;
-    }
-
-    public function messages(): array
-    {
-        return $this->messages;
-    }
-
-    public function result(): ResultContract|Collection|null
-    {
-        return $this->result;
     }
 
     public function buildRequest(Method $method, string $uri): RequestInterface

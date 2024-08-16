@@ -9,7 +9,7 @@ use Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem;
 use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
 use Szhorvath\CloudflareStream\DataObjects\Video\PublicDetails;
 use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
-use Szhorvath\CloudflareStream\DataObjects\Video\VideoCollection;
+use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
 use Szhorvath\CloudflareStream\StreamSdk;
@@ -40,9 +40,11 @@ it('should create list videos', function () {
 
     expect($videos)
         ->toBeInstanceOf(ApiResponse::class)
-        ->result->toBeInstanceOf(VideoCollection::class);
+        ->result->toBeInstanceOf(Videos::class)
+        ->total->toBeNull()
+        ->range->toBeNull();
 
-    expect($videos->result)
+    expect($videos->result->videos)
         ->toHaveCount(2)
         ->sequence(
             fn ($item) => $item
@@ -104,6 +106,5 @@ it('should create list videos', function () {
                 ->liveInput->toBe('aed55c2824e57b715d1254c2e7f47edd')
                 ->clippedFrom->toBeNull()
                 ->publicDetails->toBeInstanceOf(PublicDetails::class),
-
         );
 });
