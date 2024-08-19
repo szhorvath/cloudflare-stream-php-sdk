@@ -10,9 +10,9 @@ use Szhorvath\CloudflareStream\Contracts\FiltersContract;
 abstract class Filters implements FiltersContract
 {
     /**
-     * @param  array<int,\Szhorvath\CloudflareStream\Filters\Filter>|null  $filters
+     * @param  array<int,\Szhorvath\CloudflareStream\Filters\Filter>  $filters
      */
-    abstract public static function make(?array $filters = []): self;
+    abstract public static function make(array $filters = []): self;
 
     /**
      * @var array<int,\Szhorvath\CloudflareStream\Filters\Filter>

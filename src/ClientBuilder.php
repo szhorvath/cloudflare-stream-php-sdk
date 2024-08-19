@@ -44,7 +44,7 @@ class ClientBuilder
     /**
      * Http headers.
      *
-     * @var array<int|string, string>
+     * @var array<int|string, array<int, string>|string>
      */
     private array $headers = [];
 

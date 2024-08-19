@@ -15,7 +15,7 @@ class OutputResource extends Resource
     /**
      * @param  array<string,mixed>  $data
      */
-    public function create(string $accountId, string $liveInputId, ?array $data = []): ApiResponse
+    public function create(string $accountId, string $liveInputId, array $data = []): ApiResponse
     {
         $response = $this->client()->post(
             uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs",
@@ -31,7 +31,7 @@ class OutputResource extends Resource
     /**
      * @param  array<string,mixed>  $data
      */
-    public function update(string $accountId, string $liveInputId, string $outputId, ?array $data = []): ApiResponse
+    public function update(string $accountId, string $liveInputId, string $outputId, array $data = []): ApiResponse
     {
         $response = $this->client()->put(
             uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}",

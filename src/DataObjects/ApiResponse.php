@@ -22,16 +22,29 @@ class ApiResponse
     ) {}
 
     /**
-     * @param  array{success:bool,result:array<int, mixed>|null|string,messages:array<int,mixed>, errors:array<int, mixed>}  $data
+     * @param  array{success:bool,result:array<string, mixed>|null,messages:array<int,mixed>, errors:array<int, mixed>}  $data
+     * @param  class-string<ResultContract>|null  $resultClass
      */
     #[Constructor]
     public static function from(array $data, ?string $resultClass = null): self
     {
+        $result = null;
+        $errors = array_map(fn ($error) => Error::from($error), $data['errors']);
+        $messages = array_map(fn ($message) => Message::from($message), $data['messages']);
+
+        if ($resultClass) {
+            if (! is_subclass_of($resultClass, ResultContract::class)) {
+                throw new \InvalidArgumentException("The {$resultClass} must implement the ".ResultContract::class);
+            }
+
+            $result = $data['result'] ? $resultClass::from($data['result']) : null;
+        }
+
         return new self(
             success: $data['success'],
-            result: $data['result'] ? $resultClass::from($data['result']) : null,
-            errors: (new Collection($data['errors']))->map(fn ($error) => Error::from($error)),
-            messages: (new Collection($data['messages']))->map(fn ($message) => Message::from($message))
+            result: $result,
+            errors: new Collection($errors),
+            messages: new Collection($messages)
         );
     }
 }

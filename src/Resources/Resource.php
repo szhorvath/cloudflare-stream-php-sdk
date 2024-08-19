@@ -47,7 +47,7 @@ abstract class Resource implements ResourceContract
     }
 
     /**
-     * @return array{success:bool,errors:array<int, string>,messages:array<int, string>,result:array<int, mixed>}
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
      *
      * @throws RuntimeException
      */

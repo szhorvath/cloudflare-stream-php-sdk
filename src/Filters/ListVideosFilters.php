@@ -11,9 +11,9 @@ use Szhorvath\CloudflareStream\Enums\VideoType;
 final class ListVideosFilters extends Filters
 {
     /**
-     * @param  array<int, \Szhorvath\CloudflareStream\Filters\Filter>|null  $filters
+     * @param  array<int, \Szhorvath\CloudflareStream\Filters\Filter>  $filters
      */
-    public static function make(?array $filters = []): self
+    public static function make(array $filters = []): self
     {
         return new self($filters);
     }
@@ -32,21 +32,21 @@ final class ListVideosFilters extends Filters
         return $this;
     }
 
-    public function to(?DateTimeImmutable $to): self
+    public function to(DateTimeImmutable $to): self
     {
         $this->add(new Filter('end', $to->format('Y-m-d\TH:i:s\Z')));
 
         return $this;
     }
 
-    public function from(?DateTimeImmutable $from): self
+    public function from(DateTimeImmutable $from): self
     {
         $this->add(new Filter('start', $from->format('Y-m-d\TH:i:s\Z')));
 
         return $this;
     }
 
-    public function between(?DateTimeImmutable $from, ?DateTimeImmutable $to): self
+    public function between(DateTimeImmutable $from, DateTimeImmutable $to): self
     {
         $this->from($from);
         $this->to($to);
@@ -54,14 +54,14 @@ final class ListVideosFilters extends Filters
         return $this;
     }
 
-    public function type(?VideoType $type): self
+    public function type(VideoType $type): self
     {
         $this->add(new Filter('type', $type->value));
 
         return $this;
     }
 
-    public function status(?VideoStatus $status): self
+    public function status(VideoStatus $status): self
     {
         $this->add(new Filter('status', $status->value));
 
