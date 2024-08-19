@@ -9,19 +9,19 @@ use League\ObjectMapper\Constructor;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
 /**
- * @extends \Illuminate\Support\Collection<int, \Szhorvath\CloudflareStream\DataObjects\ListInputItem>
+ * @extends \Illuminate\Support\Collection<int, ListInputItem>
  */
 class InputCollection extends Collection implements ResultContract
 {
-    protected $type = ListInputItem::class;
-
     /**
-     * @param  array<string, mixed>  $data
-     * @return \Szhorvath\CloudflareStream\DataObjects\InputCollection<int, \Szhorvath\CloudflareStream\DataObjects\ListInputItem>
+     * @param  array<int, mixed>  $data
+     * @return InputCollection<int, ListInputItem>
      */
     #[Constructor]
-    public static function from(array $data): self
+    public static function from(array $data): InputCollection
     {
-        return (new self($data))->map(fn ($item) => ListInputItem::from($item));
+        $items = array_map(fn (array $item) => ListInputItem::from($item), $data);
+
+        return new InputCollection($items);
     }
 }

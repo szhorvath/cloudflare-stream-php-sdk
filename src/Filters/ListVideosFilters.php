@@ -10,6 +10,14 @@ use Szhorvath\CloudflareStream\Enums\VideoType;
 
 final class ListVideosFilters extends Filters
 {
+    /**
+     * @param  array<int, \Szhorvath\CloudflareStream\Filters\Filter>|null  $filters
+     */
+    public static function make(?array $filters = []): self
+    {
+        return new self($filters);
+    }
+
     public function search(?string $search): self
     {
         $this->add(new Filter('search', $search));

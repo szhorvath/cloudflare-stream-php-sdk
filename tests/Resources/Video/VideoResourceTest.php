@@ -11,6 +11,7 @@ use Szhorvath\CloudflareStream\DataObjects\Video\PublicDetails;
 use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Status;
+use Szhorvath\CloudflareStream\Filters\ListVideosFilters;
 use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
 use Szhorvath\CloudflareStream\StreamSdk;
 
@@ -36,6 +37,7 @@ it('should create list videos', function () {
 
     $videos = $sdk->video()->list(
         accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        filters: ListVideosFilters::make()->search('test')
     );
 
     expect($videos)

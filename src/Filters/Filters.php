@@ -10,25 +10,21 @@ use Szhorvath\CloudflareStream\Contracts\FiltersContract;
 abstract class Filters implements FiltersContract
 {
     /**
-     * @param  array<int,Filter>  $filters
+     * @param  array<int,\Szhorvath\CloudflareStream\Filters\Filter>|null  $filters
+     */
+    abstract public static function make(?array $filters = []): self;
+
+    /**
+     * @var array<int,\Szhorvath\CloudflareStream\Filters\Filter>
      */
     private array $filters = [];
 
     /**
-     * @param  array<int,Filter>  $filters
+     * @param  array<int,\Szhorvath\CloudflareStream\Filters\Filter>  $filters
      */
     public function __construct(array $filters = [])
     {
         $this->filters = $filters;
-    }
-
-    /**
-     * @param  array<int,Filter>  $filters
-     * @return static<int,Filter>
-     */
-    public static function make(array $filters = []): static
-    {
-        return new static($filters);
     }
 
     public function applyTo(RequestInterface $request): RequestInterface
@@ -65,6 +61,9 @@ abstract class Filters implements FiltersContract
         return $this;
     }
 
+    /**
+     * @return array<int,\Szhorvath\CloudflareStream\Filters\Filter>
+     */
     public function all(): array
     {
         return $this->filters;

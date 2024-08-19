@@ -9,6 +9,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 use Szhorvath\CloudflareStream\Contracts\ResourceContract;
 use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\StreamSdk;
@@ -32,6 +33,9 @@ abstract class Resource implements ResourceContract
         );
     }
 
+    /**
+     * @param  array<string,mixed>  $payload
+     */
     public function createStream(array $payload): StreamInterface
     {
         return Psr17FactoryDiscovery::findStreamFactory()->createStream(
@@ -43,9 +47,9 @@ abstract class Resource implements ResourceContract
     }
 
     /**
-     * @return array{success:bool,errors:array,messages:array,result:array}
+     * @return array{success:bool,errors:array<int, string>,messages:array<int, string>,result:array<int, mixed>}
      *
-     * @throws JsonException
+     * @throws RuntimeException
      */
     public function decodeResponse(ResponseInterface $response): array
     {

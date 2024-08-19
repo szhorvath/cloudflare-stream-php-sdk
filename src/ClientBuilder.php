@@ -44,14 +44,20 @@ class ClientBuilder
     /**
      * Http headers.
      *
-     * @var array<int, string>
+     * @var array<int|string, string>
      */
     private array $headers = [];
 
+    private ClientInterface $httpClient;
+
+    private RequestFactoryInterface $requestFactory;
+
+    private StreamFactoryInterface $streamFactory;
+
     public function __construct(
-        private ?ClientInterface $httpClient = null,
-        private ?RequestFactoryInterface $requestFactory = null,
-        private ?StreamFactoryInterface $streamFactory = null,
+        ?ClientInterface $httpClient = null,
+        ?RequestFactoryInterface $requestFactory = null,
+        ?StreamFactoryInterface $streamFactory = null,
     ) {
         $this->httpClient = $httpClient ?: Psr18ClientDiscovery::find();
         $this->requestFactory = $requestFactory ?: Psr17FactoryDiscovery::findRequestFactory();
@@ -111,6 +117,11 @@ class ClientBuilder
         $this->addPlugin(new HeaderAppendPlugin($this->headers));
     }
 
+    /**
+     * Add headers to the request.
+     *
+     * @param  array<int|string, string>  $headers
+     */
     public function addHeaders(array $headers): void
     {
         $this->headers = array_merge($this->headers, $headers);
@@ -134,7 +145,7 @@ class ClientBuilder
     /**
      * Add a cache plugin to cache responses locally.
      *
-     *
+     * @param  array<string, mixed>  $config
      * @return void
      */
     public function addCache(CacheItemPoolInterface $cachePool, array $config = [])

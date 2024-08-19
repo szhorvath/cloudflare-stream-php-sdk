@@ -6,6 +6,9 @@ namespace Szhorvath\CloudflareStream\Filters;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 class Filter implements Arrayable
 {
     public function __construct(
@@ -28,6 +31,11 @@ class Filter implements Arrayable
         return "{$this->name}={$this->value}";
     }
 
+    /**
+     * Get the instance as an array.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

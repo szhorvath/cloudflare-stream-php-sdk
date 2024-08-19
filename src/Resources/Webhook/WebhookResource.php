@@ -10,6 +10,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class WebhookResource extends Resource
 {
+    /**
+     * @param  array<string,mixed>  $data
+     */
     public function create(string $accountId, array $data): ApiResponse
     {
         $response = $this->client()->put(

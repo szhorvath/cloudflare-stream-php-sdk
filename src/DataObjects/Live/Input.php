@@ -12,6 +12,9 @@ class Input implements ResultContract
 {
     use CanBeHydrated;
 
+    /**
+     * @param  array<string, mixed>  $meta
+     */
     public function __construct(
         public readonly string $uid,
         public readonly DateTimeImmutable $created,

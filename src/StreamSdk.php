@@ -19,15 +19,17 @@ use Szhorvath\CloudflareStream\Resources\Webhook\WebhookResource;
 
 final class StreamSdk
 {
+    private ClientBuilder $clientBuilder;
+
     public function __construct(
         private readonly string $token,
         private readonly string $baseUrl = 'https://api.cloudflare.com/client/v4/',
-        private ?ClientBuilder $clientBuilder = null,
+        ?ClientBuilder $clientBuilder = null,
     ) {
         $this->clientBuilder = $builder = $clientBuilder ?: new ClientBuilder;
 
         $builder->addPlugin(new AuthenticationPlugin(new Bearer($this->token)));
-        $builder->addPlugin(new BaseUriPlugin(Psr17FactoryDiscovery::findUriFactory()->createUri($baseUrl)));
+        $builder->addPlugin(new BaseUriPlugin(Psr17FactoryDiscovery::findUriFactory()->createUri($this->baseUrl)));
         $builder->addPlugin(new ErrorPlugin);
         $builder->addPlugin(new RetryPlugin);
     }

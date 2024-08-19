@@ -9,19 +9,19 @@ use League\ObjectMapper\Constructor;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
 /**
- * @extends \Illuminate\Support\Collection<int, \Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem>
+ * @extends \Illuminate\Support\Collection<int,ListVideoItem>
  */
 class VideoCollection extends Collection implements ResultContract
 {
-    protected $type = ListVideoItem::class;
-
     /**
-     * @param  array<string, mixed>  $data
-     * @return VideoCollection<int, \Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem>
+     * @param  array<int, mixed>  $data
+     * @return VideoCollection<int,ListVideoItem>
      */
     #[Constructor]
-    public static function from(array $data): self
+    public static function from(array $data): VideoCollection
     {
-        return (new self($data))->map(fn ($item) => ListVideoItem::from($item));
+        $items = array_map(fn (array $item) => ListVideoItem::from($item), $data);
+
+        return new VideoCollection($items);
     }
 }

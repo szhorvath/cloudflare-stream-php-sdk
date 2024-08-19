@@ -11,8 +11,8 @@ use Szhorvath\CloudflareStream\Contracts\ResultContract;
 class ApiResponse
 {
     /**
-     * @param  Collection<int, Error>  $errors
-     * @param  Collection<int Message>  $messages
+     * @param  Collection<int,\Szhorvath\CloudflareStream\DataObjects\Error>  $errors
+     * @param  Collection<int,\Szhorvath\CloudflareStream\DataObjects\Message>  $messages
      */
     public function __construct(
         public readonly bool $success,
@@ -21,6 +21,9 @@ class ApiResponse
         public readonly ?ResultContract $result = null,
     ) {}
 
+    /**
+     * @param  array{success:bool,result:array<int, mixed>|null|string,messages:array<int,mixed>, errors:array<int, mixed>}  $data
+     */
     #[Constructor]
     public static function from(array $data, ?string $resultClass = null): self
     {

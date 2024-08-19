@@ -12,6 +12,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class OutputResource extends Resource
 {
+    /**
+     * @param  array<string,mixed>  $data
+     */
     public function create(string $accountId, string $liveInputId, ?array $data = []): ApiResponse
     {
         $response = $this->client()->post(
@@ -25,6 +28,9 @@ class OutputResource extends Resource
         );
     }
 
+    /**
+     * @param  array<string,mixed>  $data
+     */
     public function update(string $accountId, string $liveInputId, string $outputId, ?array $data = []): ApiResponse
     {
         $response = $this->client()->put(

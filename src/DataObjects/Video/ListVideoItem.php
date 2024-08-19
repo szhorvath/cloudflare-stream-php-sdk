@@ -14,6 +14,7 @@ class ListVideoItem implements ResultContract
 
     /**
      * @param  array<string,mixed>  $meta
+     * @param  array<string>  $allowedOrigins
      */
     public function __construct(
         public string $uid,

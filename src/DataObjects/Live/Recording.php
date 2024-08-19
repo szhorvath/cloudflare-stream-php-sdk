@@ -8,6 +8,9 @@ use Szhorvath\CloudflareStream\Enums\RecordingMode;
 
 class Recording
 {
+    /**
+     * @param  array<int, string>|null  $allowedOrigins
+     */
     public function __construct(
         public readonly RecordingMode $mode,
         public readonly bool $requireSignedURLs,
