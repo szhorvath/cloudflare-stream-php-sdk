@@ -9,6 +9,7 @@ use Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem;
 use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
 use Szhorvath\CloudflareStream\DataObjects\Video\PublicDetails;
 use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
+use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Filters\ListVideosFilters;
@@ -109,4 +110,57 @@ it('should create list videos', function () {
                 ->clippedFrom->toBeNull()
                 ->publicDetails->toBeInstanceOf(PublicDetails::class),
         );
+});
+
+it('should retrieve video details', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        status: Status::OK,
+        name: 'video/retrieve',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $video = $sdk->video()->retrieve(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        videoId: 'a0587f7fe8e9bc851c75183831a2eb3c'
+    );
+
+    expect($video)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Video::class)
+        ->total->toBeNull()
+        ->range->toBeNull();
+
+    expect($video->result)
+        ->uid->toBe('a0587f7fe8e9bc851c75183831a2eb3c')
+        ->thumbnail->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/a0587f7fe8e9bc851c75183831a2eb3c/thumbnails/thumbnail.jpg')
+        ->thumbnailTimestampPct->toBe(0.0)
+        ->readyToStream->toBeTrue()
+        ->readyToStreamAt->toBeInstanceOf(DateTimeImmutable::class)
+        ->status->toBeInstanceOf(VideoStatus::class)
+        ->meta->toBeArray()
+        ->created->toBeInstanceOf(DateTimeImmutable::class)
+        ->modified->toBeInstanceOf(DateTimeImmutable::class)
+        ->scheduledDeletion->toBeInstanceOf(DateTimeImmutable::class)
+        ->size->toBe(0)
+        ->preview->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/a0587f7fe8e9bc851c75183831a2eb3c/watch')
+        ->allowedOrigins->toBeArray()
+        ->requireSignedURLs->toBeFalse()
+        ->uploaded->toBeInstanceOf(DateTimeImmutable::class)
+        ->uploadExpiry->toBeNull()
+        ->maxSizeBytes->toBeNull()
+        ->maxDurationSeconds->toBeNull()
+        ->duration->toBe(25.0)
+        ->input->toBeInstanceOf(Input::class)
+        ->input->width->toBe(1280)
+        ->input->height->toBe(720)
+        ->playback->toBeInstanceOf(Playback::class)
+        ->watermark->toBeNull()
+        ->liveInput->toBe('aed55c2824e57b715d1254c2e7f47edd')
+        ->clippedFrom->toBeNull()
+        ->publicDetails->toBeInstanceOf(PublicDetails::class);
 });
