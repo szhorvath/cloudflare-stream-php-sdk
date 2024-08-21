@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
+use Szhorvath\CloudflareStream\StreamSdk;
+use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Live\InputStatus;
-use Szhorvath\CloudflareStream\DataObjects\Live\OutputCollection;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
-use Szhorvath\CloudflareStream\StreamSdk;
+use Szhorvath\CloudflareStream\DataObjects\Live\OutputCollection;
 
 it('should return the input resource', function () {
     $sdk = new StreamSdk('api-key');
@@ -21,7 +21,6 @@ it('should return the input resource', function () {
 it('should create a new live output', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/output/create',
     ));
 
@@ -55,7 +54,6 @@ it('should create a new live output', function () {
 it('should list all live outputs', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/output/list',
     ));
 
@@ -101,7 +99,6 @@ it('should list all live outputs', function () {
 it('should update live output', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/output/update',
     ));
 
@@ -146,8 +143,8 @@ it('should update live output', function () {
 it('should delete live output', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::NO_CONTENT,
         name: 'live/output/delete',
+        status: Status::NO_CONTENT,
     ));
 
     $sdk = new StreamSdk(

@@ -13,7 +13,6 @@ use Szhorvath\CloudflareStream\DataObjects\Live\Rtmps;
 use Szhorvath\CloudflareStream\DataObjects\Live\Srt;
 use Szhorvath\CloudflareStream\DataObjects\Live\WebRTC;
 use Szhorvath\CloudflareStream\Enums\RecordingMode;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\StreamSdk;
 
@@ -28,7 +27,6 @@ it('should return the input resource', function () {
 it('should list live inputs', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/input/list',
     ));
 
@@ -63,7 +61,6 @@ it('should list live inputs', function () {
 it('should create a new live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/input/create',
     ));
 
@@ -122,7 +119,6 @@ it('should create a new live input', function () {
 it('should update a live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/input/update',
     ));
 
@@ -182,7 +178,6 @@ it('should update a live input', function () {
 it('should retrieve a single live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/input/retrieve',
     ));
 
@@ -243,7 +238,6 @@ it('should retrieve a single live input', function () {
 it('should delete a live input', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'live/input/delete',
     ));
 

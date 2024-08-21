@@ -52,7 +52,7 @@ function mockBuilder(?MockClient $client = null)
     );
 }
 
-function response(Status $status, string $name): Response
+function response(string $name, Status $status = Status::OK): Response
 {
     return new Response(
         status: $status->value,

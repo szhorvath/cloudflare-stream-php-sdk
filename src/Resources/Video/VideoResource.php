@@ -38,4 +38,29 @@ class VideoResource extends Resource
             resultClass: Video::class
         );
     }
+
+    /**
+     * @param  array{allowedOrigins:array{string},creator:string,maxDurationSeconds:int,meta:array{string,mixed},requireSignedURLs:bool,scheduledDeletion:string,thumbnailTimestampPct:int,uploadExpiry:string}  $data
+     */
+    public function update(string $accountId, string $videoId, array $data): ApiResponse
+    {
+        $response = $this->client()->post(
+            uri: "/accounts/{$accountId}/stream/{$videoId}",
+            body: $this->createStream($data)
+        );
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Video::class
+        );
+    }
+
+    public function delete(string $accountId, string $videoId): ApiResponse
+    {
+        $response = $this->client()->delete("/accounts/{$accountId}/stream/{$videoId}");
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+        );
+    }
 }

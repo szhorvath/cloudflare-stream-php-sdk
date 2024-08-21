@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Resources\Webhook\WebhookResource;
 use Szhorvath\CloudflareStream\StreamSdk;
 
@@ -19,7 +18,6 @@ it('should return the webhook resource', function () {
 it('should create a webhook', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'webhook/create',
     ));
 
@@ -50,7 +48,6 @@ it('should create a webhook', function () {
 it('should view webhook', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'webhook/view',
     ));
 
@@ -78,7 +75,6 @@ it('should view webhook', function () {
 it('should delete webhook', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'webhook/delete',
     ));
 

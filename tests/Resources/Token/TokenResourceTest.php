@@ -6,13 +6,11 @@ use Http\Mock\Client as MockClient;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Message;
 use Szhorvath\CloudflareStream\DataObjects\Token\Verify;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\StreamSdk;
 
 it('should verify token validity', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'token/verify',
     ));
 

@@ -12,7 +12,6 @@ use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
 use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Status;
-use Szhorvath\CloudflareStream\Filters\ListVideosFilters;
 use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
 use Szhorvath\CloudflareStream\StreamSdk;
 
@@ -27,7 +26,6 @@ it('should return the video resource', function () {
 it('should create list videos', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'video/list',
     ));
 
@@ -38,7 +36,6 @@ it('should create list videos', function () {
 
     $videos = $sdk->video()->list(
         accountId: '0a6c8c72a460f78152e767e10842dcb2',
-        filters: ListVideosFilters::make()->search('test')
     );
 
     expect($videos)
@@ -115,7 +112,6 @@ it('should create list videos', function () {
 it('should retrieve video details', function () {
     $client = new MockClient;
     $client->addResponse(response(
-        status: Status::OK,
         name: 'video/retrieve',
     ));
 
@@ -163,4 +159,83 @@ it('should retrieve video details', function () {
         ->liveInput->toBe('aed55c2824e57b715d1254c2e7f47edd')
         ->clippedFrom->toBeNull()
         ->publicDetails->toBeInstanceOf(PublicDetails::class);
+});
+
+it('should delete a video', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/retrieve',
+        status: Status::NO_CONTENT
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->delete(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        videoId: 'a0587f7fe8e9bc851c75183831a2eb3c'
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->success->toBeTrue()
+        ->result->toBeNull();
+});
+
+it('should update a video', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/update',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->update(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        videoId: 'a0587f7fe8e9bc851c75183831a2eb3c',
+        data: [
+            'meta' => ['key' => 'value'],
+            'requireSignedURLs' => true,
+        ]
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Video::class)
+        ->total->toBeNull()
+        ->range->toBeNull();
+
+    expect($response->result)
+        ->uid->toBe('a0587f7fe8e9bc851c75183831a2eb3c')
+        ->thumbnail->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/a0587f7fe8e9bc851c75183831a2eb3c/thumbnails/thumbnail.jpg')
+        ->thumbnailTimestampPct->toBe(0.0)
+        ->readyToStream->toBeTrue()
+        ->readyToStreamAt->toBeInstanceOf(DateTimeImmutable::class)
+        ->status->toBeInstanceOf(VideoStatus::class)
+        ->meta->toBeArray()->toBe(['key' => 'value'])
+        ->created->toBeInstanceOf(DateTimeImmutable::class)
+        ->modified->toBeInstanceOf(DateTimeImmutable::class)
+        ->scheduledDeletion->toBeInstanceOf(DateTimeImmutable::class)
+        ->size->toBe(0)
+        ->preview->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/a0587f7fe8e9bc851c75183831a2eb3c/watch')
+        ->allowedOrigins->toBeArray()
+        ->requireSignedURLs->toBeTrue()
+        ->uploaded->toBeInstanceOf(DateTimeImmutable::class)
+        ->uploadExpiry->toBeNull()
+        ->maxSizeBytes->toBeNull()
+        ->maxDurationSeconds->toBeNull()
+        ->duration->toBe(25.0)
+        ->input->toBeInstanceOf(Input::class)
+        ->input->width->toBe(1280)
+        ->input->height->toBe(720)
+        ->playback->toBeInstanceOf(Playback::class)
+        ->watermark->toBeNull()
+        ->liveInput->toBe('aed55c2824e57b715d1254c2e7f47edd')
+        ->clippedFrom->toBeNull()
+        ->publicDetails->toBeNull();
 });
