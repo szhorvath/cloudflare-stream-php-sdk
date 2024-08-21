@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
-use Szhorvath\CloudflareStream\StreamSdk;
-use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Live\InputStatus;
-use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
 use Szhorvath\CloudflareStream\DataObjects\Live\OutputCollection;
+use Szhorvath\CloudflareStream\Enums\Status;
+use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
+use Szhorvath\CloudflareStream\StreamSdk;
 
 it('should return the input resource', function () {
     $sdk = new StreamSdk('api-key');
