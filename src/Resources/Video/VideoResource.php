@@ -63,4 +63,22 @@ class VideoResource extends Resource
             data: $this->decodeResponse($response),
         );
     }
+
+    /**
+     * @param  array{url:string,creator?:string,meta?:array{string,mixed},requireSignedURLs?:bool,scheduledDeletion?:string,thumbnailTimestampPct?:int,watermark?:array{uid:string}}  $data
+     * @param  array{Upload-Creator?:string,Upload-Metadata?:string}  $headers
+     */
+    public function uploadFromURL(string $accountId, array $data, array $headers = []): ApiResponse
+    {
+        $response = $this->client()->post(
+            uri: "/accounts/{$accountId}/stream/copy",
+            headers: $headers,
+            body: $this->createStream($data)
+        );
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Video::class
+        );
+    }
 }

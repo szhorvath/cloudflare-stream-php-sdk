@@ -1,0 +1,46 @@
+{
+    "result": {
+        "uid": "143aaa0e8af3ed7d7f6cd173e5e01e6b",
+        "creator": "John Doe",
+        "thumbnail": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/thumbnails/thumbnail.jpg",
+        "thumbnailTimestampPct": 0,
+        "readyToStream": false,
+        "readyToStreamAt": null,
+        "status": {
+            "state": "downloading",
+            "errorReasonCode": "",
+            "errorReasonText": ""
+        },
+        "meta": {
+            "downloaded-from": "https://example.com/video.mp4",
+            "extra": "value",
+            "name": "Big Buck Bunny"
+        },
+        "created": "2024-08-21T12:01:50.391648Z",
+        "modified": "2024-08-21T12:01:50.391648Z",
+        "scheduledDeletion": "2024-12-01T00:00:00Z",
+        "size": 158008374,
+        "preview": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/watch",
+        "allowedOrigins": [],
+        "requireSignedURLs": true,
+        "uploaded": "2024-08-21T12:01:50.391603Z",
+        "uploadExpiry": null,
+        "maxSizeBytes": null,
+        "maxDurationSeconds": null,
+        "duration": -1,
+        "input": {
+            "width": -1,
+            "height": -1
+        },
+        "playback": {
+            "hls": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/manifest/video.m3u8",
+            "dash": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/manifest/video.mpd"
+        },
+        "watermark": null,
+        "clippedFrom": null,
+        "publicDetails": null
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}

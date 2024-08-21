@@ -239,3 +239,69 @@ it('should update a video', function () {
         ->clippedFrom->toBeNull()
         ->publicDetails->toBeNull();
 });
+
+it('should upload a video from URL', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/upload-from-url',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->uploadFromURL(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        data: [
+            'url' => 'https://example.com/video.mp4',
+            'creator' => 'John Doe',
+            'meta' => [
+                'name' => 'Big Buck Bunny',
+                'extra' => 'value',
+            ],
+            'requireSignedURLs' => false,
+            'scheduledDeletion' => '2024-12-01T00:00:00Z',
+            'thumbnailTimestampPct' => 0,
+        ],
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Video::class)
+        ->total->toBeNull()
+        ->range->toBeNull();
+
+    expect($response->result)
+        ->uid->toBe('143aaa0e8af3ed7d7f6cd173e5e01e6b')
+        ->thumbnail->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/thumbnails/thumbnail.jpg')
+        ->thumbnailTimestampPct->toBe(0.0)
+        ->readyToStream->toBeFalse()
+        ->readyToStreamAt->toBeNull()
+        ->status->toBeInstanceOf(VideoStatus::class)
+        ->meta->toBeArray()->toBe([
+            'downloaded-from' => 'https://example.com/video.mp4',
+            'extra' => 'value',
+            'name' => 'Big Buck Bunny',
+        ])
+        ->created->toBeInstanceOf(DateTimeImmutable::class)
+        ->modified->toBeInstanceOf(DateTimeImmutable::class)
+        ->scheduledDeletion->toBeInstanceOf(DateTimeImmutable::class)
+        ->size->toBe(158008374)
+        ->preview->toBe('https://customer-6xsmv6axkdji7uup.cloudflarestream.com/143aaa0e8af3ed7d7f6cd173e5e01e6b/watch')
+        ->allowedOrigins->toBeArray()
+        ->requireSignedURLs->toBeTrue()
+        ->uploaded->toBeInstanceOf(DateTimeImmutable::class)
+        ->uploadExpiry->toBeNull()
+        ->maxSizeBytes->toBeNull()
+        ->maxDurationSeconds->toBeNull()
+        ->duration->toBe(-1.0)
+        ->input->toBeInstanceOf(Input::class)
+        ->input->width->toBe(-1)
+        ->input->height->toBe(-1)
+        ->playback->toBeInstanceOf(Playback::class)
+        ->watermark->toBeNull()
+        ->liveInput->toBeNull()
+        ->clippedFrom->toBeNull()
+        ->publicDetails->toBeNull();
+});

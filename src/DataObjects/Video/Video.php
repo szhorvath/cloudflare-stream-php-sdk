@@ -22,7 +22,7 @@ class Video implements ResultContract
         public string $thumbnail,
         public float $thumbnailTimestampPct,
         public bool $readyToStream,
-        public DateTimeImmutable $readyToStreamAt,
+        public ?DateTimeImmutable $readyToStreamAt,
         public ?Status $status,
         public array $meta,
         public DateTimeImmutable $created,
@@ -40,7 +40,7 @@ class Video implements ResultContract
         public Input $input,
         public Playback $playback,
         public ?Watermark $watermark,
-        public string $liveInput,
+        public ?string $liveInput,
         public ?string $clippedFrom,
         public ?PublicDetails $publicDetails,
     ) {}
