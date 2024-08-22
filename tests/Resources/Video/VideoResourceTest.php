@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
+use Szhorvath\CloudflareStream\DataObjects\Token\Token;
 use Szhorvath\CloudflareStream\DataObjects\Video\Input;
 use Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem;
 use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
@@ -304,4 +305,27 @@ it('should upload a video from URL', function () {
         ->liveInput->toBeNull()
         ->clippedFrom->toBeNull()
         ->publicDetails->toBeNull();
+});
+
+it('should create a signed URL token for videos', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/signed-url-token',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->createToken(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        videoId: 'd98633da6f5ab948d6aca407190c8b7b',
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->success->toBeTrue()
+        ->result->toBeInstanceOf(Token::class)
+        ->result->token->toBe('eyJhbGciOiJSUzI1NiIsImtpZCI6ImMzY2M0NDFiMTlmNDYzYTczNWM2MTk0OTU3NWUxM2Y0In0.eyJzdWIiOiJkOTg2MzNkYTZmNWFiOTQ4ZDZhY2E0MDcxOTBjOGI3YiIsImtpZCI6ImMzY2M0NDFiMTlmNDYzYTczNWM2MTk0OTU3NWUxM2Y0IiwiZXhwIjoiMTcyNDMyNzUyMCIsIm5iZiI6IjE3MjQzMjAzMjAifQ.DQB4odgGXnlDzkBOpkoUi_fTIhNp8_spJUbDub4YJnWVukJzpTZNmTzl8O-5TcfQ5Dxjj15bPQgv5_F4axBnoQWXaCTqq_yXsYhodX0q2hHa4moUkJQevnMfR62h2YZifjX58snZFe60nIocf6YbklfYwb2tDJ4rhPgbd0YqS43vdiWWdm0q7MhXUl6QzSaX21XhO2t0--GOkmaQ3PpmfOJ7yjtTRYuIcVqhOEQN8xCZ5IQhsu793FuVlA_DjnqB41bHfgp1hOfigVekjbD9AiHzxj2gvLvHDuhZqG4KGqldnWHtYEj83Mp1sL75Dc-OsuF10mPtNZKVnxmsba1F7Q');
 });

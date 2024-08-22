@@ -6,6 +6,7 @@ namespace Szhorvath\CloudflareStream\Resources\Video;
 
 use Szhorvath\CloudflareStream\Contracts\FiltersContract;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
+use Szhorvath\CloudflareStream\DataObjects\Token\Token;
 use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Method;
@@ -79,6 +80,23 @@ class VideoResource extends Resource
         return ApiResponse::from(
             data: $this->decodeResponse($response),
             resultClass: Video::class
+        );
+    }
+
+    /**
+     * @param  array{accessRules?:array{action?:string,country?:array{string},ip?:array{string},type?:string},downloadable?:bool,exp?:int,id?:string,nbf?:int,pem?:string}  $data
+     */
+    public function createToken(string $accountId, string $videoId, array $data = []): ApiResponse
+    {
+
+        $response = $this->client()->post(
+            uri: "/accounts/{$accountId}/stream/{$videoId}/token",
+            body: $data ? $this->createStream($data) : null
+        );
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Token::class
         );
     }
 }
