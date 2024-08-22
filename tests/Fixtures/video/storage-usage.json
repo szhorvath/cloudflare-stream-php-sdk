@@ -1,0 +1,11 @@
+{
+    "result": {
+        "creator": "",
+        "videoCount": 13,
+        "totalStorageMinutes": 144.05,
+        "totalStorageMinutesLimit": 1000
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}

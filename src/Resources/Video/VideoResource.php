@@ -7,6 +7,7 @@ namespace Szhorvath\CloudflareStream\Resources\Video;
 use Szhorvath\CloudflareStream\Contracts\FiltersContract;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
 use Szhorvath\CloudflareStream\DataObjects\Token\Token;
+use Szhorvath\CloudflareStream\DataObjects\Video\Storage;
 use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Method;
@@ -104,5 +105,15 @@ class VideoResource extends Resource
         $response = $this->client()->get("/accounts/{$accountId}/stream/{$videoId}/embed");
 
         return $response->getBody()->getContents();
+    }
+
+    public function storage(string $accountId): ApiResponse
+    {
+        $response = $this->client()->get("/accounts/{$accountId}/stream/storage-usage");
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Storage::class
+        );
     }
 }

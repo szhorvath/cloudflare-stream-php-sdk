@@ -12,6 +12,7 @@ use Szhorvath\CloudflareStream\DataObjects\Video\ListVideoItem;
 use Szhorvath\CloudflareStream\DataObjects\Video\Playback;
 use Szhorvath\CloudflareStream\DataObjects\Video\PublicDetails;
 use Szhorvath\CloudflareStream\DataObjects\Video\Status as VideoStatus;
+use Szhorvath\CloudflareStream\DataObjects\Video\Storage;
 use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
 use Szhorvath\CloudflareStream\Enums\Status;
@@ -353,4 +354,28 @@ it('should retrieve embed code HTML', function () {
 
     expect($response)
         ->toBe('<stream src="d98633da6f5ab948d6aca407190c8b7b"></stream><script data-cfasync="false" defer type="text/javascript" src="https://embed.videodelivery.net/embed/r4xu.fla9.latest.js?video=d98633da6f5ab948d6aca407190c8b7b"></script>');
+});
+
+it('should get storage usage', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/storage-usage',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->storage(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Storage::class)
+        ->result->totalStorageMinutes->toBe(144.05)
+        ->result->totalStorageMinutesLimit->toBe(1000)
+        ->result->videoCount->toBe(13)
+        ->result->creator->toBe('');
 });
