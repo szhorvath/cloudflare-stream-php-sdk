@@ -116,4 +116,20 @@ class VideoResource extends Resource
             resultClass: Storage::class
         );
     }
+
+    /**
+     * @param  array{clippedFromVideoUID:string,startTimeSeconds:int,endTimeSeconds:int,allowedOrigins?:array{string},creator?:string,maxDurationSeconds?:int,requireSignedURLs?:bool,thumbnailTimestampPct?:float,watermark?:array{uid:string}}  $data
+     */
+    public function clip(string $accountId, array $data): ApiResponse
+    {
+        $response = $this->client()->post(
+            uri: "/accounts/{$accountId}/stream/clip",
+            body: $this->createStream($data)
+        );
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Video::class
+        );
+    }
 }

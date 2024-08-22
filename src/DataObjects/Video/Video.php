@@ -32,7 +32,7 @@ class Video implements ResultContract
         public string $preview,
         public array $allowedOrigins,
         public bool $requireSignedURLs,
-        public DateTimeImmutable $uploaded,
+        public ?DateTimeImmutable $uploaded,
         public ?DateTimeImmutable $uploadExpiry,
         public ?int $maxSizeBytes,
         public ?int $maxDurationSeconds,

@@ -379,3 +379,61 @@ it('should get storage usage', function () {
         ->result->videoCount->toBe(13)
         ->result->creator->toBe('');
 });
+
+it('should clip a video', function () {
+    $client = new MockClient;
+    $client->addResponse(response(
+        name: 'video/clip',
+    ));
+
+    $sdk = new StreamSdk(
+        token: '123',
+        clientBuilder: mockBuilder($client)
+    );
+
+    $response = $sdk->video()->clip(
+        accountId: '0a6c8c72a460f78152e767e10842dcb2',
+        data: [
+            'clippedFromVideoUID' => 'd98633da6f5ab948d6aca407190c8b7b',
+            'startTimeSeconds' => 120,
+            'endTimeSeconds' => 240,
+            'creator' => 'Jane Doe',
+            'requireSignedURLs' => false,
+        ]
+    );
+
+    expect($response)
+        ->toBeInstanceOf(ApiResponse::class)
+        ->result->toBeInstanceOf(Video::class)
+        ->total->toBeNull()
+        ->range->toBeNull();
+
+    expect($response->result)
+        ->uid->toBe('88cd0e5f454333c4de66f0f61399f067')
+        ->thumbnail->toBe('https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/thumbnails/thumbnail.jpg')
+        ->thumbnailTimestampPct->toBe(0.0)
+        ->readyToStream->toBeFalse()
+        ->readyToStreamAt->toBeNull()
+        ->status->toBeInstanceOf(VideoStatus::class)
+        ->meta->toBeArray()
+        ->created->toBeInstanceOf(DateTimeImmutable::class)
+        ->modified->toBeInstanceOf(DateTimeImmutable::class)
+        ->scheduledDeletion->toBeNull()
+        ->size->toBe(0)
+        ->preview->toBe('https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/watch')
+        ->allowedOrigins->toBeArray()
+        ->requireSignedURLs->toBeFalse()
+        ->uploaded->toBeNull()
+        ->uploadExpiry->toBeNull()
+        ->maxSizeBytes->toBeNull()
+        ->maxDurationSeconds->toBeNull()
+        ->duration->toBe(-1.0)
+        ->input->toBeInstanceOf(Input::class)
+        ->input->width->toBe(-1)
+        ->input->height->toBe(-1)
+        ->playback->toBeInstanceOf(Playback::class)
+        ->watermark->toBeNull()
+        ->liveInput->toBeNull()
+        ->clippedFrom->toBe('d98633da6f5ab948d6aca407190c8b7b')
+        ->publicDetails->toBeNull();
+});

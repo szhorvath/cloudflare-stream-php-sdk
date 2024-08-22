@@ -1,0 +1,42 @@
+{
+    "result": {
+        "uid": "88cd0e5f454333c4de66f0f61399f067",
+        "creator": "Jane Doe",
+        "thumbnail": "https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/thumbnails/thumbnail.jpg",
+        "thumbnailTimestampPct": 0,
+        "readyToStream": false,
+        "readyToStreamAt": null,
+        "status": {
+            "state": "queued",
+            "errorReasonCode": "",
+            "errorReasonText": ""
+        },
+        "meta": {},
+        "created": "2024-08-22T12:37:20.378619Z",
+        "modified": "2024-08-22T12:37:20.378619Z",
+        "scheduledDeletion": null,
+        "size": 0,
+        "preview": "https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/watch",
+        "allowedOrigins": [],
+        "requireSignedURLs": false,
+        "uploaded": null,
+        "uploadExpiry": null,
+        "maxSizeBytes": null,
+        "maxDurationSeconds": null,
+        "duration": -1,
+        "input": {
+            "width": -1,
+            "height": -1
+        },
+        "playback": {
+            "hls": "https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/manifest/video.m3u8",
+            "dash": "https://cloudflarestream.com/88cd0e5f454333c4de66f0f61399f067/manifest/video.mpd"
+        },
+        "watermark": null,
+        "clippedFrom": "d98633da6f5ab948d6aca407190c8b7b",
+        "publicDetails": null
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}
