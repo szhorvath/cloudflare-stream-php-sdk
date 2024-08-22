@@ -58,8 +58,7 @@ function response(string $name, Status $status = Status::OK): Response
         status: $status->value,
         body: Psr17FactoryDiscovery::findStreamFactory()->createStream(
             fixture($name),
-        ),
-
+        )
     );
 }
 

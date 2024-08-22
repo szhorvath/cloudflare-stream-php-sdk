@@ -88,7 +88,6 @@ class VideoResource extends Resource
      */
     public function createToken(string $accountId, string $videoId, array $data = []): ApiResponse
     {
-
         $response = $this->client()->post(
             uri: "/accounts/{$accountId}/stream/{$videoId}/token",
             body: $data ? $this->createStream($data) : null
@@ -98,5 +97,12 @@ class VideoResource extends Resource
             data: $this->decodeResponse($response),
             resultClass: Token::class
         );
+    }
+
+    public function embed(string $accountId, string $videoId): string
+    {
+        $response = $this->client()->get("/accounts/{$accountId}/stream/{$videoId}/embed");
+
+        return $response->getBody()->getContents();
     }
 }
