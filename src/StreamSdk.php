@@ -13,6 +13,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication\Bearer;
 use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
+use Szhorvath\CloudflareStream\Resources\SigningKey\SigningKeyResource;
 use Szhorvath\CloudflareStream\Resources\Token\TokenResource;
 use Szhorvath\CloudflareStream\Resources\Video\VideoResource;
 use Szhorvath\CloudflareStream\Resources\Webhook\WebhookResource;
@@ -67,5 +68,10 @@ final class StreamSdk
     public function video(): VideoResource
     {
         return new VideoResource($this);
+    }
+
+    public function signingKey(): SigningKeyResource
+    {
+        return new SigningKeyResource($this);
     }
 }
