@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Http\Mock\Client as MockClient;
-use Szhorvath\CloudflareStream\StreamSdk;
-use Szhorvath\CloudflareStream\Enums\DownloadStatus;
 use Szhorvath\CloudflareStream\DataObjects\ApiResponse;
-use Szhorvath\CloudflareStream\DataObjects\Download\Download;
-use Szhorvath\CloudflareStream\Resources\Download\DownloadResource;
 use Szhorvath\CloudflareStream\DataObjects\Download\DefaultDownload;
+use Szhorvath\CloudflareStream\DataObjects\Download\Download;
+use Szhorvath\CloudflareStream\Enums\DownloadStatus;
+use Szhorvath\CloudflareStream\Resources\Download\DownloadResource;
+use Szhorvath\CloudflareStream\StreamSdk;
 
 it('should return the download resource', function () {
     $sdk = new StreamSdk('api-key');
