@@ -42,7 +42,7 @@ class VideoResource extends Resource
     }
 
     /**
-     * @param  array{allowedOrigins:array{string},creator:string,maxDurationSeconds:int,meta:array{string,mixed},requireSignedURLs:bool,scheduledDeletion:string,thumbnailTimestampPct:int,uploadExpiry:string}  $data
+     * @param  array{allowedOrigins:array{string},creator:string,maxDurationSeconds:int,meta:array{string,mixed},requireSignedURLs:bool,scheduledDeletion:string,thumbnailTimestampPct:int,uploadExpiry:string,publicDetails?:array{title?:string,share_link?:string,channel_link?:string,logo?:string}}  $data
      */
     public function update(string $accountId, string $videoId, array $data): ApiResponse
     {
