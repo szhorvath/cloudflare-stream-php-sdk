@@ -20,12 +20,14 @@ class StreamSigner
     /**
      * @param  array<int,array{action?:string,country?:array{string},ip?:array{string},type?:string}>  $accessRules
      */
-    public function signedToken(string $videoId, array $accessRules = [], ?DateTimeImmutable $expiresAt = null): string
+    public function signedToken(string $videoId, array $accessRules = [], ?DateTimeImmutable $expiresAt = null, bool $downloadable = false, ?DateTimeImmutable $availableAt = null): string
     {
         $data = [
             'sub' => $videoId,
             'kid' => $this->keyId,
             'exp' => $expiresAt ? $expiresAt->getTimestamp() : time() + 3600,
+            'nbf' => $availableAt ? $availableAt->getTimestamp() : time(),
+            'downloadable' => $downloadable,
             'accessRules' => $accessRules,
         ];
 

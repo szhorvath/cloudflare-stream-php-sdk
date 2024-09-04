@@ -24,7 +24,13 @@ it('should return a signed token', function () {
 
     $streamSigner = new StreamSigner($pem, $keyId);
 
-    $signedToken = $streamSigner->signedToken($videoId, $accessRules, $expiresAt);
+    $signedToken = $streamSigner->signedToken(
+        videoId: $videoId,
+        accessRules: $accessRules,
+        expiresAt: $expiresAt,
+        downloadable: true,
+        availableAt: new DateTimeImmutable('2024-10-01 00:00:00'),
+    );
 
-    expect($signedToken)->toBe('eyJhbGciOiJSUzI1NiIsImtpZCI6ImFjZmU0MjRmNTAzMWFjOTlkZGNhNDdiNzAzN2UzNDQ2In0.eyJzdWIiOiIxNDNhYWEwZThhZjNlZDdkN2Y2Y2QxNzNlNWUwMWU2YiIsImtpZCI6ImFjZmU0MjRmNTAzMWFjOTlkZGNhNDdiNzAzN2UzNDQ2IiwiZXhwIjoxNzMzMDExMjAwLCJhY2Nlc3NSdWxlcyI6W3sidHlwZSI6ImlwLmdlb2lwLmNvdW50cnkiLCJhY3Rpb24iOiJhbGxvdyIsImNvdW50cnkiOlsiR0IiXX0seyJ0eXBlIjoiYW55IiwiYWN0aW9uIjoiYmxvY2sifV19.e8sjXQv48vOdZfCgqV_JZI_50UoNEn9tAqtQZWuFRYgCv7M-L3o2GoILpm0kG45C6pcVkWSVFIU6JddpgcF5Px3JwbhdcrD-rJxehjhL0_ji2bGTAweOitkPTpVo-y-dKecDip_mU4T1V4gLhiYaHtRCib4keTW4fy8XDMTLQ7Sr475TImte9LVm7IZcY80Lpg0VX-gPNouRDH7hBU8UivFq_-Z35u07ojixjO5tQH0ewxQ88jZZKbI6rbwJn0W3SSVpixhGWpRdFLEkdEuG8s2s5DQWUL5XcGQ3qprO7c6N7oNzilS89OuVqEMWeJCApN_bCNAfIGvmCkUtILpBWQ');
+    expect($signedToken)->toBe('eyJhbGciOiJSUzI1NiIsImtpZCI6ImFjZmU0MjRmNTAzMWFjOTlkZGNhNDdiNzAzN2UzNDQ2In0.eyJzdWIiOiIxNDNhYWEwZThhZjNlZDdkN2Y2Y2QxNzNlNWUwMWU2YiIsImtpZCI6ImFjZmU0MjRmNTAzMWFjOTlkZGNhNDdiNzAzN2UzNDQ2IiwiZXhwIjoxNzMzMDExMjAwLCJuYmYiOjE3Mjc3NDA4MDAsImRvd25sb2FkYWJsZSI6dHJ1ZSwiYWNjZXNzUnVsZXMiOlt7InR5cGUiOiJpcC5nZW9pcC5jb3VudHJ5IiwiYWN0aW9uIjoiYWxsb3ciLCJjb3VudHJ5IjpbIkdCIl19LHsidHlwZSI6ImFueSIsImFjdGlvbiI6ImJsb2NrIn1dfQ.AGLxUY7AtIG4V5Ss84yOyxkgnZYfFDOQmDzT2zmPZ5ep4r_NfPHhDF45jtuvowc5ybFDcuhhieJ5b3ixw-nbxkNQwHW4tSkWG3bTiiIVz2LuuhEI4NCZ82PFbb0oWPaaQnFJWgxOSGjQZZ3r8rT95-3JqbLpcTq4K11yYrHI0uZKVS8jzNv1X8sO0X1a6cxEg7roDpBTr2EH6uxSDH4DLBVRNDn3EN7FIYf4nI9azuiKEVVv8z74AT31QrhbfqbzpCNA3kDx5hc54Kcxi6Kn-4ojx76Cn1DGa6OsnFTGQWfhIc-ZctlXSM_kvpZ1aNXRmBl9hhAPSWrlyNgdx3nQOw');
 });

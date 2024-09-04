@@ -12,13 +12,30 @@ class DownloadResource extends Resource
 {
     public function create(string $accountId, string $videoId): ApiResponse
     {
-        $response = $this->client()->post(
-            uri: "/accounts/{$accountId}/stream/{$videoId}/downloads"
-        );
+        $response = $this->client()->post("/accounts/{$accountId}/stream/{$videoId}/downloads");
 
         return ApiResponse::from(
             data: $this->decodeResponse($response),
             resultClass: Download::class
+        );
+    }
+
+    public function list(string $accountId, string $videoId): ApiResponse
+    {
+        $response = $this->client()->get("/accounts/{$accountId}/stream/{$videoId}/downloads");
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
+            resultClass: Download::class
+        );
+    }
+
+    public function delete(string $accountId, string $videoId): ApiResponse
+    {
+        $response = $this->client()->delete("/accounts/{$accountId}/stream/{$videoId}/downloads");
+
+        return ApiResponse::from(
+            data: $this->decodeResponse($response),
         );
     }
 }

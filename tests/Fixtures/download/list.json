@@ -1,0 +1,12 @@
+{
+    "result": {
+        "default": {
+            "status": "ready",
+            "url": "https://customer-6xsmv6axkdji7uup.cloudflarestream.com/6f3dd7af6bf5b6067f3a712f50937bd1/downloads/default.mp4",
+            "percentComplete": 100
+        }
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+}
