@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Szhorvath\CloudflareStream\Concerns;
 
 use DateTimeImmutable;
+use RuntimeException;
 
+/**
+ * @see https://developers.cloudflare.com/stream/viewing-videos/securing-your-stream/#option-2-generating-signed-tokens-without-calling-the-token-endpoint
+ */
 class StreamSigner
 {
     public function __construct(
@@ -35,7 +39,7 @@ class StreamSigner
         );
 
         if (! $signed) {
-            throw new \RuntimeException('Failed to sign token');
+            throw new RuntimeException('Failed to sign token');
         }
 
         $signedToken = $token.'.'.$this->encodeToBase64Url($signature);
@@ -57,7 +61,7 @@ class StreamSigner
     protected function privateKey(): \OpenSSLAsymmetricKey
     {
         if (! $key = openssl_pkey_get_private(base64_decode($this->pem))) {
-            throw new \RuntimeException('Invalid private key');
+            throw new RuntimeException('Invalid private key');
         }
 
         return $key;

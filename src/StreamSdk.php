@@ -11,6 +11,7 @@ use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication\Bearer;
+use Szhorvath\CloudflareStream\Resources\Download\DownloadResource;
 use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
 use Szhorvath\CloudflareStream\Resources\SigningKey\SigningKeyResource;
@@ -73,5 +74,10 @@ final class StreamSdk
     public function signingKey(): SigningKeyResource
     {
         return new SigningKeyResource($this);
+    }
+
+    public function download(): DownloadResource
+    {
+        return new DownloadResource($this);
     }
 }
