@@ -50,7 +50,12 @@ trait CanCreateRequests
         );
     }
 
-    public function send(RequestInterface $request, ?array $body = null, array $headers = []): array
+    /**
+     * @param  array<string, mixed>  $body
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
+    public function send(RequestInterface $request, array $body = [], array $headers = []): array
     {
         foreach ($headers as $key => $value) {
             $request = $request->withHeader(
@@ -76,6 +81,10 @@ trait CanCreateRequests
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
     public function get(string $uri, ?FiltersContract $filters = null, array $headers = []): array
     {
         $request = $this->request(Method::GET, $uri);
@@ -90,6 +99,11 @@ trait CanCreateRequests
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
     public function post(string $uri, array $data = [], array $headers = []): array
     {
         return $this->send(
@@ -99,6 +113,11 @@ trait CanCreateRequests
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
     public function put(string $uri, array $data = [], array $headers = []): array
     {
         return $this->send(
@@ -108,6 +127,11 @@ trait CanCreateRequests
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
     public function patch(string $uri, array $data = [], array $headers = []): array
     {
         return $this->send(
@@ -117,6 +141,11 @@ trait CanCreateRequests
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $headers
+     * @return array{success: bool, errors: array<int, string>, messages: array<int, string>, result: array<string, mixed>}
+     */
     public function delete(string $uri, array $data = [], array $headers = []): array
     {
         return $this->send(
