@@ -120,21 +120,13 @@ class StreamSigner
         return $this;
     }
 
-    protected function privateKey(): \OpenSSLAsymmetricKey
+    private function privateKey(): \OpenSSLAsymmetricKey
     {
         if (! $key = openssl_pkey_get_private(base64_decode($this->pem))) {
             throw new RuntimeException('Invalid private key');
         }
 
         return $key;
-    }
-
-    /**
-     * @param  array{sub:string,kid:string,exp:int,accessRules?:array{action?:string,country?:array{string},ip?:array{string},type?:string}}  $payload
-     */
-    protected function token(array $payload): string
-    {
-        return $this->arrayToBase64url($this->headers()).'.'.$this->arrayToBase64url($payload);
     }
 
     private function encodeToBase64Url(string $str): string
