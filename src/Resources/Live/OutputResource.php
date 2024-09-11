@@ -17,13 +17,13 @@ class OutputResource extends Resource
      */
     public function create(string $accountId, string $liveInputId, array $data = []): ApiResponse
     {
-        $response = $this->client()->post(
+        $response = $this->sdk()->post(
             uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs",
-            body: $this->createStream($data)
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Output::class
         );
     }
@@ -33,43 +33,43 @@ class OutputResource extends Resource
      */
     public function update(string $accountId, string $liveInputId, string $outputId, array $data = []): ApiResponse
     {
-        $response = $this->client()->put(
+        $response = $this->sdk()->put(
             uri: "/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}",
-            body: $this->createStream($data)
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Output::class
         );
     }
 
     public function list(string $accountId, string $liveInputId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs");
+        $response = $this->sdk()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: OutputCollection::class
         );
     }
 
     public function retrieve(string $accountId, string $liveInputId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
+        $response = $this->sdk()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Input::class
         );
     }
 
     public function delete(string $accountId, string $liveInputId, string $outputId): ApiResponse
     {
-        $response = $this->client()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}");
+        $response = $this->sdk()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}/outputs/{$outputId}");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
         );
     }
 }

@@ -11,6 +11,7 @@ use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication\Bearer;
+use Szhorvath\CloudflareStream\Concerns\CanCreateRequests;
 use Szhorvath\CloudflareStream\Resources\Download\DownloadResource;
 use Szhorvath\CloudflareStream\Resources\Live\InputResource;
 use Szhorvath\CloudflareStream\Resources\Live\OutputResource;
@@ -21,6 +22,8 @@ use Szhorvath\CloudflareStream\Resources\Webhook\WebhookResource;
 
 final class StreamSdk
 {
+    use CanCreateRequests;
+
     private ClientBuilder $clientBuilder;
 
     public function __construct(

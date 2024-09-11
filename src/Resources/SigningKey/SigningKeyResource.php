@@ -13,30 +13,30 @@ class SigningKeyResource extends Resource
 {
     public function create(string $accountId): ApiResponse
     {
-        $response = $this->client()->post("/accounts/{$accountId}/stream/keys");
+        $response = $this->sdk()->post("/accounts/{$accountId}/stream/keys");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Key::class
         );
     }
 
     public function list(string $accountId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/keys");
+        $response = $this->sdk()->get("/accounts/{$accountId}/stream/keys");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: KeyCollection::class
         );
     }
 
     public function delete(string $accountId, string $keyId): ApiResponse
     {
-        $response = $this->client()->delete("/accounts/{$accountId}/stream/keys/{$keyId}");
+        $response = $this->sdk()->delete("/accounts/{$accountId}/stream/keys/{$keyId}");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response)
+            data: $response
         );
     }
 }

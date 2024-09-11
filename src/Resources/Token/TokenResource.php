@@ -12,10 +12,10 @@ class TokenResource extends Resource
 {
     public function verify(): ApiResponse
     {
-        $response = $this->client()->get('/user/tokens/verify');
+        $response = $this->sdk()->get('/user/tokens/verify');
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Verify::class
         );
     }

@@ -13,39 +13,39 @@ class WebhookResource extends Resource
     /**
      * @param  array<string,mixed>  $data
      */
-    public function create(string $accountId, array $data): ApiResponse
+    public function create(string $accountId, array $data = []): ApiResponse
     {
-        $response = $this->client()->put(
+        $response = $this->sdk()->put(
             uri: "/accounts/{$accountId}/stream/webhook",
-            body: $this->createStream($data)
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Webhook::class
         );
     }
 
     public function view(string $accountId): ApiResponse
     {
-        $response = $this->client()->get(
+        $response = $this->sdk()->get(
             uri: "/accounts/{$accountId}/stream/webhook"
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Webhook::class
         );
     }
 
     public function delete(string $accountId): ApiResponse
     {
-        $response = $this->client()->delete(
+        $response = $this->sdk()->delete(
             uri: "/accounts/{$accountId}/stream/webhook"
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
         );
     }
 }

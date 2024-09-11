@@ -10,33 +10,29 @@ use Szhorvath\CloudflareStream\DataObjects\Token\Token;
 use Szhorvath\CloudflareStream\DataObjects\Video\Storage;
 use Szhorvath\CloudflareStream\DataObjects\Video\Video;
 use Szhorvath\CloudflareStream\DataObjects\Video\Videos;
-use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\Resources\Resource;
 
 class VideoResource extends Resource
 {
     public function list(string $accountId, ?FiltersContract $filters = null): ApiResponse
     {
-        $request = $this->buildRequest(Method::GET, "/accounts/{$accountId}/stream");
-
-        if ($filters) {
-            $request = $filters->applyTo($request);
-        }
-
-        $response = $this->client()->sendRequest($request);
+        $response = $this->sdk()->get(
+            uri: "/accounts/{$accountId}/stream",
+            filters: $filters
+        );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Videos::class
         );
     }
 
     public function retrieve(string $accountId, string $videoId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/{$videoId}");
+        $response = $this->sdk()->get("/accounts/{$accountId}/stream/{$videoId}");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Video::class
         );
     }
@@ -46,23 +42,23 @@ class VideoResource extends Resource
      */
     public function update(string $accountId, string $videoId, array $data): ApiResponse
     {
-        $response = $this->client()->post(
+        $response = $this->sdk()->post(
             uri: "/accounts/{$accountId}/stream/{$videoId}",
-            body: $this->createStream($data)
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Video::class
         );
     }
 
     public function delete(string $accountId, string $videoId): ApiResponse
     {
-        $response = $this->client()->delete("/accounts/{$accountId}/stream/{$videoId}");
+        $response = $this->sdk()->delete("/accounts/{$accountId}/stream/{$videoId}");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
         );
     }
 
@@ -72,14 +68,14 @@ class VideoResource extends Resource
      */
     public function uploadFromURL(string $accountId, array $data, array $headers = []): ApiResponse
     {
-        $response = $this->client()->post(
+        $response = $this->sdk()->post(
             uri: "/accounts/{$accountId}/stream/copy",
+            data: $data,
             headers: $headers,
-            body: $this->createStream($data)
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Video::class
         );
     }
@@ -89,13 +85,13 @@ class VideoResource extends Resource
      */
     public function createToken(string $accountId, string $videoId, array $data = []): ApiResponse
     {
-        $response = $this->client()->post(
+        $response = $this->sdk()->post(
             uri: "/accounts/{$accountId}/stream/{$videoId}/token",
-            body: $data ? $this->createStream($data) : null
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Token::class
         );
     }
@@ -109,10 +105,10 @@ class VideoResource extends Resource
 
     public function storage(string $accountId): ApiResponse
     {
-        $response = $this->client()->get("/accounts/{$accountId}/stream/storage-usage");
+        $response = $this->sdk()->get("/accounts/{$accountId}/stream/storage-usage");
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Storage::class
         );
     }
@@ -122,13 +118,13 @@ class VideoResource extends Resource
      */
     public function clip(string $accountId, array $data): ApiResponse
     {
-        $response = $this->client()->post(
+        $response = $this->sdk()->post(
             uri: "/accounts/{$accountId}/stream/clip",
-            body: $this->createStream($data)
+            data: $data
         );
 
         return ApiResponse::from(
-            data: $this->decodeResponse($response),
+            data: $response,
             resultClass: Video::class
         );
     }
