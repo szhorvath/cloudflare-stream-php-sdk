@@ -45,13 +45,13 @@
         "league/object-mapper": "dev-main"
     },
     "require-dev": {
-        "laravel/pint": "^1.17",
-        "nyholm/psr7": "^1.8",
-        "pestphp/pest": "^2.34",
-        "pestphp/pest-plugin-type-coverage": "^2.8",
+        "laravel/pint": "^1.17.3",
+        "nyholm/psr7": "^1.8.2",
+        "pestphp/pest": "^3.0.6",
+        "pestphp/pest-plugin-type-coverage": "^3.0.0",
         "php-http/message": "^1.16",
         "php-http/mock-client": "^1.6",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^1.12.3",
         "spatie/ray": "^1.41",
         "symfony/http-client": "^6.4 || ^7.1"
     },
