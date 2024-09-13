@@ -3,7 +3,9 @@
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
 use Szhorvath\CloudflareStream\ClientBuilder;
+use Szhorvath\CloudflareStream\Enums\Method;
 use Szhorvath\CloudflareStream\Enums\Status;
 use Szhorvath\CloudflareStream\Tests\TestCase;
 
@@ -49,6 +51,14 @@ function mockBuilder(?MockClient $client = null)
 {
     return new ClientBuilder(
         httpClient: $client ?? new MockClient,
+    );
+}
+
+function request(Method $method, string $uri): RequestInterface
+{
+    return Psr17FactoryDiscovery::findRequestFactory()->createRequest(
+        method: $method->value,
+        uri: $uri,
     );
 }
 
