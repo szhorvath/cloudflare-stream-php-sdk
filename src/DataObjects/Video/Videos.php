@@ -6,6 +6,9 @@ namespace Szhorvath\CloudflareStream\DataObjects\Video;
 
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
+/**
+ * @implements ResultContract<Videos>
+ */
 class Videos implements ResultContract
 {
     public function __construct(

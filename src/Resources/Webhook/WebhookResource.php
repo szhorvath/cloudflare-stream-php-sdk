@@ -12,6 +12,7 @@ class WebhookResource extends Resource
 {
     /**
      * @param  array<string,mixed>  $data
+     * @return ApiResponse<Webhook>
      */
     public function create(string $accountId, array $data = []): ApiResponse
     {
@@ -26,6 +27,9 @@ class WebhookResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Webhook>
+     */
     public function view(string $accountId): ApiResponse
     {
         $response = $this->sdk()->get(
@@ -38,6 +42,9 @@ class WebhookResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Webhook>
+     */
     public function delete(string $accountId): ApiResponse
     {
         $response = $this->sdk()->delete(

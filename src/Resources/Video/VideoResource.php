@@ -14,6 +14,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class VideoResource extends Resource
 {
+    /**
+     * @return ApiResponse<Videos>
+     */
     public function list(string $accountId, ?FiltersContract $filters = null): ApiResponse
     {
         $response = $this->sdk()->get(
@@ -27,6 +30,9 @@ class VideoResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Video>
+     */
     public function retrieve(string $accountId, string $videoId): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/{$videoId}");
@@ -39,6 +45,7 @@ class VideoResource extends Resource
 
     /**
      * @param  array{allowedOrigins:array{string},creator:string,maxDurationSeconds:int,meta:array{string,mixed},requireSignedURLs:bool,scheduledDeletion:string,thumbnailTimestampPct:int,uploadExpiry:string,publicDetails?:array{title?:string,share_link?:string,channel_link?:string,logo?:string}}  $data
+     * @return ApiResponse<Video>
      */
     public function update(string $accountId, string $videoId, array $data): ApiResponse
     {
@@ -53,6 +60,9 @@ class VideoResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<null>
+     */
     public function delete(string $accountId, string $videoId): ApiResponse
     {
         $response = $this->sdk()->delete("/accounts/{$accountId}/stream/{$videoId}");
@@ -65,6 +75,7 @@ class VideoResource extends Resource
     /**
      * @param  array{url:string,creator?:string,meta?:array{string,mixed},requireSignedURLs?:bool,scheduledDeletion?:string,thumbnailTimestampPct?:int,watermark?:array{uid:string}}  $data
      * @param  array{Upload-Creator?:string,Upload-Metadata?:string}  $headers
+     * @return ApiResponse<Video>
      */
     public function uploadFromURL(string $accountId, array $data, array $headers = []): ApiResponse
     {
@@ -82,6 +93,7 @@ class VideoResource extends Resource
 
     /**
      * @param  array{accessRules?:array{action?:string,country?:array{string},ip?:array{string},type?:string},downloadable?:bool,exp?:int,id?:string,nbf?:int,pem?:string}  $data
+     * @return ApiResponse<Token>
      */
     public function createToken(string $accountId, string $videoId, array $data = []): ApiResponse
     {
@@ -103,6 +115,9 @@ class VideoResource extends Resource
         return $response->getBody()->getContents();
     }
 
+    /**
+     * @return ApiResponse<Storage>
+     */
     public function storage(string $accountId): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/storage-usage");
@@ -115,6 +130,7 @@ class VideoResource extends Resource
 
     /**
      * @param  array{clippedFromVideoUID:string,startTimeSeconds:int,endTimeSeconds:int,allowedOrigins?:array{string},creator?:string,maxDurationSeconds?:int,requireSignedURLs?:bool,thumbnailTimestampPct?:float,watermark?:array{uid:string}}  $data
+     * @return ApiResponse<Video>
      */
     public function clip(string $accountId, array $data): ApiResponse
     {

@@ -14,6 +14,7 @@ class InputResource extends Resource
 {
     /**
      * @param  array<string,mixed>  $data
+     * @return ApiResponse<Input>
      */
     public function create(string $accountId, array $data = []): ApiResponse
     {
@@ -30,6 +31,7 @@ class InputResource extends Resource
 
     /**
      * @param  array<string,mixed>  $data
+     * @return ApiResponse<Input>
      */
     public function update(string $accountId, string $liveInputId, array $data = []): ApiResponse
     {
@@ -44,6 +46,9 @@ class InputResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<InputCollection>
+     */
     public function list(string $accountId, ?FiltersContract $filters = null): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/live_inputs", $filters);
@@ -54,6 +59,9 @@ class InputResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Input>
+     */
     public function retrieve(string $accountId, string $liveInputId): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");
@@ -64,6 +72,9 @@ class InputResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<null>
+     */
     public function delete(string $accountId, string $liveInputId): ApiResponse
     {
         $response = $this->sdk()->delete("/accounts/{$accountId}/stream/live_inputs/{$liveInputId}");

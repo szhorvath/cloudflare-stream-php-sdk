@@ -10,6 +10,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class DownloadResource extends Resource
 {
+    /**
+     * @return ApiResponse<Download>
+     */
     public function create(string $accountId, string $videoId): ApiResponse
     {
         $response = $this->sdk()->post("/accounts/{$accountId}/stream/{$videoId}/downloads");
@@ -20,6 +23,9 @@ class DownloadResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Download>
+     */
     public function list(string $accountId, string $videoId): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/{$videoId}/downloads");
@@ -30,6 +36,9 @@ class DownloadResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<Download>
+     */
     public function delete(string $accountId, string $videoId): ApiResponse
     {
         $response = $this->sdk()->delete("/accounts/{$accountId}/stream/{$videoId}/downloads");

@@ -7,6 +7,9 @@ namespace Szhorvath\CloudflareStream\DataObjects\Video;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<Storage>
+ */
 class Storage implements ResultContract
 {
     use CanBeHydrated;

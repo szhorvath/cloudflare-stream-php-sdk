@@ -9,6 +9,9 @@ use League\ObjectMapper\PropertyCasters\CastToType;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<ListInputItem>
+ */
 class ListInputItem implements ResultContract
 {
     use CanBeHydrated;

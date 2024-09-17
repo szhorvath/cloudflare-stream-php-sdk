@@ -10,6 +10,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class TokenResource extends Resource
 {
+    /**
+     * @return ApiResponse<Verify>
+     */
     public function verify(): ApiResponse
     {
         $response = $this->sdk()->get('/user/tokens/verify');

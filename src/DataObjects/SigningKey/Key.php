@@ -8,6 +8,9 @@ use DateTimeImmutable;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<Key>
+ */
 class Key implements ResultContract
 {
     use CanBeHydrated;

@@ -8,6 +8,9 @@ use DateTimeImmutable;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<Input>
+ */
 class Input implements ResultContract
 {
     use CanBeHydrated;

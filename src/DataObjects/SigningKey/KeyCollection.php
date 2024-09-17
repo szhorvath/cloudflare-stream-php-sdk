@@ -10,6 +10,8 @@ use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
 /**
  * @extends \Illuminate\Support\Collection<int, ListKeyItem>
+ *
+ * @implements ResultContract<KeyCollection>
  */
 class KeyCollection extends Collection implements ResultContract
 {

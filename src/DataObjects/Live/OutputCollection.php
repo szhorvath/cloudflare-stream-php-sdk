@@ -10,6 +10,8 @@ use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
 /**
  * @extends \Illuminate\Support\Collection<int,ListOutputItem>
+ *
+ * @implements ResultContract<OutputCollection>
  */
 class OutputCollection extends Collection implements ResultContract
 {

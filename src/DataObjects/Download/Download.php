@@ -7,6 +7,9 @@ namespace Szhorvath\CloudflareStream\DataObjects\Download;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<Download>
+ */
 class Download implements ResultContract
 {
     use CanBeHydrated;

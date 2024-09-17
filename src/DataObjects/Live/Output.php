@@ -7,6 +7,9 @@ namespace Szhorvath\CloudflareStream\DataObjects\Live;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 use Szhorvath\CloudflareStream\DataObjects\Concerns\CanBeHydrated;
 
+/**
+ * @implements ResultContract<Output>
+ */
 class Output implements ResultContract
 {
     use CanBeHydrated;

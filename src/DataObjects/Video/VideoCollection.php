@@ -10,6 +10,8 @@ use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
 /**
  * @extends \Illuminate\Support\Collection<int,ListVideoItem>
+ *
+ * @implements ResultContract<VideoCollection>
  */
 class VideoCollection extends Collection implements ResultContract
 {

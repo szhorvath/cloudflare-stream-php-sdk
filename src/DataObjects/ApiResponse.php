@@ -8,22 +8,27 @@ use Illuminate\Support\Collection;
 use League\ObjectMapper\Constructor;
 use Szhorvath\CloudflareStream\Contracts\ResultContract;
 
+/**
+ * @template TResult
+ */
 class ApiResponse
 {
     /**
      * @param  Collection<int,\Szhorvath\CloudflareStream\DataObjects\Error>  $errors
      * @param  Collection<int,\Szhorvath\CloudflareStream\DataObjects\Message>  $messages
+     * @param  TResult|null  $result
      */
     public function __construct(
         public readonly bool $success,
         public readonly Collection $errors,
         public readonly Collection $messages,
-        public readonly ?ResultContract $result = null,
+        public $result = null,
     ) {}
 
     /**
      * @param  array{success:bool,result:array<string, mixed>|null,messages:array<int,mixed>, errors:array<int, mixed>}  $data
-     * @param  class-string<ResultContract>|null  $resultClass
+     * @param  class-string<TResult>|null  $resultClass
+     * @return self<TResult>
      */
     #[Constructor]
     public static function from(array $data, ?string $resultClass = null): self

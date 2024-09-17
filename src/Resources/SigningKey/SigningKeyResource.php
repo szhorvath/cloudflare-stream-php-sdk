@@ -11,6 +11,9 @@ use Szhorvath\CloudflareStream\Resources\Resource;
 
 class SigningKeyResource extends Resource
 {
+    /**
+     * @return ApiResponse<Key>
+     */
     public function create(string $accountId): ApiResponse
     {
         $response = $this->sdk()->post("/accounts/{$accountId}/stream/keys");
@@ -21,6 +24,9 @@ class SigningKeyResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<KeyCollection>
+     */
     public function list(string $accountId): ApiResponse
     {
         $response = $this->sdk()->get("/accounts/{$accountId}/stream/keys");
@@ -31,6 +37,9 @@ class SigningKeyResource extends Resource
         );
     }
 
+    /**
+     * @return ApiResponse<null>
+     */
     public function delete(string $accountId, string $keyId): ApiResponse
     {
         $response = $this->sdk()->delete("/accounts/{$accountId}/stream/keys/{$keyId}");
