@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Szhorvath\CloudflareStream\Contracts;
 
 /**
- * @template TResult of object
+ * @template TResult
  */
 interface ResultContract
 {
@@ -13,5 +13,5 @@ interface ResultContract
      * @param  array<string,mixed>  $data
      * @return TResult
      */
-    public static function from(array $data): object;
+    public static function from(array $data);
 }
