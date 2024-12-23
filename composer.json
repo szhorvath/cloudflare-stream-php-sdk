@@ -51,7 +51,7 @@
         "pestphp/pest-plugin-type-coverage": "^2.0 || ^3.0",
         "php-http/message": "^1.16",
         "php-http/mock-client": "^1.6",
-        "phpstan/phpstan": "^1.12.3",
+        "phpstan/phpstan": "^2.0.4",
         "spatie/ray": "^1.41",
         "symfony/http-client": "^6.4 || ^7.1"
     },
