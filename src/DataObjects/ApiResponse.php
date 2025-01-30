@@ -65,7 +65,7 @@ class ApiResponse
 
     public function error(): string
     {
-        return $this->errors->first()?->message ?? '';
+        return $this->errors->first()->message ?? '';
     }
 
     /**
@@ -78,6 +78,6 @@ class ApiResponse
 
     public function message(): string
     {
-        return $this->messages->first()?->message ?? '';
+        return $this->messages->first()->message ?? '';
     }
 }

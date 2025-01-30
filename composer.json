@@ -37,7 +37,7 @@
         "psr/http-client-implementation": "^1.0",
         "php-http/httplug": "^2.4",
         "psr/http-factory": "^1.1",
-        "php-http/discovery": "^1.19",
+        "php-http/discovery": "^1.20",
         "psr/http-factory-implementation": "^1.0",
         "php-http/client-common": "^2.7",
         "php-http/cache-plugin": "^2.0",
@@ -45,15 +45,15 @@
         "league/object-mapper": "dev-main"
     },
     "require-dev": {
-        "laravel/pint": "^1.17.3",
+        "laravel/pint": "1.20.0",
         "nyholm/psr7": "^1.8.2",
-        "pestphp/pest": "^2.0 || ^3.0",
-        "pestphp/pest-plugin-type-coverage": "^2.0 || ^3.0",
+        "pestphp/pest": "^2.0 || ^3.7",
+        "pestphp/pest-plugin-type-coverage": "^2.0 || ^3.2",
         "php-http/message": "^1.16",
         "php-http/mock-client": "^1.6",
-        "phpstan/phpstan": "^1.12.3",
-        "spatie/ray": "^1.41",
-        "symfony/http-client": "^6.4 || ^7.1"
+        "phpstan/phpstan": "2.1.2",
+        "spatie/ray": "1.41.4",
+        "symfony/http-client": "^6.4 || ^7.2"
     },
     "config": {
         "sort-packages": true,
