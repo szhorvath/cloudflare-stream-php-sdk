@@ -52,7 +52,7 @@
         "php-http/message": "^1.16",
         "php-http/mock-client": "^1.6",
         "phpstan/phpstan": "^1.12.16 || ^2.1.2",
-        "spatie/ray": "1.46.0",
+        "spatie/ray": "1.47.0",
         "symfony/http-client": "^6.4 || ^7.2"
     },
     "config": {
